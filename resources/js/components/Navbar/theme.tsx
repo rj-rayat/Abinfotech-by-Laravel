@@ -14,7 +14,31 @@ import {
 
 export function ThemeToggle() {
   
+    const [theme, setTheme]= React.useState<"light" | "dark" | "system">("system")
+    
 
+    React.useEffect(()=>{
+        const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null
+        if (savedTheme){
+            setTheme(savedTheme)
+            applyTheme(savedTheme)
+        }
+    }, [])
+
+    const applyTheme = (theme: "light" | "dark" | "system")=>{
+        const root = window.document.documentElement
+        root.classList.remove("light" , "dark")
+
+        if (theme === "system"){
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            root.classList.add(systemTheme)
+        } else{
+            root.classList.add(theme)
+        }
+
+        localStorage.setItem("theme", theme)
+        setTheme(theme)
+    }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,13 +49,13 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem >
+        <DropdownMenuItem onClick={() => applyTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem >
+        <DropdownMenuItem  onClick={() => applyTheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => applyTheme("system")}> 
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
