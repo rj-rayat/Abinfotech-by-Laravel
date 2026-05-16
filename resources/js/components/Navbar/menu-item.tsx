@@ -77,7 +77,7 @@ export default function MenuItem() {
              <li className="">
                 <ListItem className="mt-2.5" href="">
                   
-                    <Link href="/our-project" className={navigationMenuTriggerStyle()}>
+                    <Link href="/project" className={navigationMenuTriggerStyle()}>
                         Our Project
                     </Link> 
                 </ListItem>

@@ -37,7 +37,7 @@ const projects = [
   }
 ];
 
-export default function Project() {
+export default function ProjectSection() {
   const [activeTab, setActiveTab] = useState("All");
 
   const filteredProjects = activeTab === "All"
