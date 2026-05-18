@@ -101,7 +101,7 @@ export default function MenuItem() {
         </NavigationMenuItem>
         <NavigationMenuItem>
             <NavigationMenuLink asChild>           
-                <Link href="/pricing" className={navigationMenuTriggerStyle()}>
+                <Link href="/price" className={navigationMenuTriggerStyle()}>
                     Pricing
                 </Link>          
             </NavigationMenuLink>
