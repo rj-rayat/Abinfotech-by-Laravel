@@ -23,6 +23,10 @@ Route::get('/blogs', function () {
     return Inertia::render('Blog/Blog');
 })->name('blog');
 
+Route::get('/contact', function () {
+    return Inertia::render('Contact/Contact');
+})->name('contact');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');

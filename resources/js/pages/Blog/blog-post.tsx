@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, User, Tag, ArrowUpRight, Search, TrendingUp, Grid, List } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 const blogPosts = [
   {
@@ -53,7 +54,9 @@ export default function BlogPage() {
             Our Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">News.</span>
           </h1>
           <div className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-400">
-            <a href="/" className="hover:text-indigo-600 transition-colors">Home</a>
+             <Link href="/">
+                                            Home
+                        </Link>  
             <span>•</span>
             <span className="text-slate-600">Our recent news</span>
           </div>
