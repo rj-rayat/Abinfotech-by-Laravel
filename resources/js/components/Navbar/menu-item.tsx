@@ -107,35 +107,13 @@ export default function MenuItem() {
             </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="">Blog</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className=" w-auto  p-2.5">
-             
-             <li className="">
-                <ListItem className="mt-2.5 capitalize" href="">
-                  
-                    <Link href="/recent-news" className={navigationMenuTriggerStyle()}>
-                        Our Recent News
-                    </Link> 
-                </ListItem>
-
-                <ListItem className="mt-2.5 capitalize" href="">
-                  
-                    <Link href="/niva-wordpress-theme" className={navigationMenuTriggerStyle()}>
-                        Top 6 artical you must read
-                    </Link> 
-                </ListItem>
-                <ListItem className="mt-2.5 capitalize" href="">
-                  
-                    <Link href="/venor-wordpress-theme" className={navigationMenuTriggerStyle()}>
-                       Top 7 creative ways to boost your media
-                    </Link> 
-                </ListItem>
-                
-             </li>
-            </ul>
-          </NavigationMenuContent>
+            <NavigationMenuLink asChild>           
+                <Link href="/blogs" className={navigationMenuTriggerStyle()}>
+                    Blogs
+                </Link>          
+            </NavigationMenuLink>
         </NavigationMenuItem>
+       
        
 
     

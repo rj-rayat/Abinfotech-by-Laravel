@@ -14,9 +14,14 @@ Route::get('/about', function () {
 Route::get('/project', function () {
     return Inertia::render('Project/Project');
 })->name('project');
+
 Route::get('/price', function () {
     return Inertia::render('Price/Price');
 })->name('price');
+
+Route::get('/blogs', function () {
+    return Inertia::render('Blog/Blog');
+})->name('blog');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
