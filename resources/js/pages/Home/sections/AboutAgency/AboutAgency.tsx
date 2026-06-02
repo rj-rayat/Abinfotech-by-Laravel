@@ -12,25 +12,25 @@ export default function AboutAgency() {
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
+
           {/* Left Side: Creative Image Stack */}
           <div className="relative group">
             {/* Main Office Image */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white"
+              className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-accent"
             >
-              <img 
-                src={team} 
-                alt="Our Team" 
+              <img
+                src={team}
+                alt="Our Team"
                 className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
 
             {/* Logo/Identity Box - Floating */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -41,14 +41,14 @@ export default function AboutAgency() {
             </motion.div>
 
             {/* Experience Badge */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="absolute -left-10 bottom-12 z-30 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/20"
             >
               <div className="flex items-center gap-4">
-                <span className="text-6xl font-black font-koulen text-slate-900 leading-none">5</span>
+                <span className="text-6xl font-black font-blinker text-slate-900 leading-none">5</span>
                 <div className="text-sm font-bold text-slate-500 uppercase tracking-tighter leading-tight">
                   Years of<br />Experience
                 </div>
@@ -68,14 +68,14 @@ export default function AboutAgency() {
                 <span className="text-indigo-600 font-bold uppercase tracking-[0.2em] text-sm">About Agency</span>
               </div>
 
-              <h2 className="text-5xl md:text-6xl font-black text-primary mb-8 leading-[1.1] tracking-tight font-koulen">
+              <h2 className="text-5xl md:text-6xl font-black text-primary mb-8 leading-[1.1] tracking-tight font-blinker">
                 Unlimited Skills for <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
                   Super Projects.
                 </span>
               </h2>
 
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Whether you need a new logo, website, video, marketing campaign, or ebook created for your business, the key to making the project a success starts with having a well-thought-out creative brief. No coding skills required to create unique sites. Customize your site in real-time and see the results instantly.
               </p>
 
@@ -84,12 +84,12 @@ export default function AboutAgency() {
                 {['Creative Design', 'Quick Delivery', '24/7 Support', 'Expert Team'].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="text-indigo-600 w-5 h-5" />
-                    <span className="text-slate-700 font-medium">{item}</span>
+                    <span className="text-muted-foreground font-medium">{item}</span>
                   </div>
                 ))}
               </div>
 
-              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-10 py-7 text-lg font-bold shadow-lg shadow-indigo-200 transition-all hover:-translate-y-1">
+              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl px-10 py-7 text-lg font-bold shadow-lg shadow-cust transition-all hover:-translate-y-1">
                 Get The Offer <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>

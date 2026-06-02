@@ -9,7 +9,7 @@ export default function Footer() {
 
         {/* Top CTA Section */}
         <div className="flex flex-wrap items-center justify-between mb-20 pb-12 border-b border-white/5 gap-8">
-          <h2 className="text-3xl md:text-5xl font-black text-white font-koulen tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-white font-blinker tracking-tight">
             Are you looking for <span className="text-indigo-500">Digital Design?</span>
           </h2>
           <button className="px-10 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full transition-all shadow-lg shadow-indigo-500/20 transform hover:-translate-y-1">

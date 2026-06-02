@@ -20,15 +20,15 @@ export default function TeamSection() {
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl md:text-6xl font-black text-primary font-koulen tracking-tight">
+            <h2 className="text-5xl md:text-6xl font-black text-primary font-blinker tracking-tight">
               Professional <span className="text-indigo-600">Team.</span>
             </h2>
             <p className="mt-4 text-slate-500 max-w-md">
@@ -51,15 +51,15 @@ export default function TeamSection() {
                 className="relative group h-[450px] rounded-[2.5rem] overflow-hidden bg-slate-200"
               >
                 {/* Background Image */}
-                <img 
-                  src={member.image} 
-                  alt={member.name} 
+                <img
+                  src={member.image}
+                  alt={member.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
                 {/* Glassmorphism Overlay */}
                 <div className="absolute inset-x-4 bottom-4 bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-[2rem] translate-y-2 group-hover:translate-y-0 transition-all duration-500 shadow-2xl">
-                  
+
                   {/* Social Icons (Floating on Hover) */}
                   <div className="flex gap-3 mb-6 opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                     {[Facebook, Linkedin, Twitter].map((Icon, i) => (
@@ -82,21 +82,21 @@ export default function TeamSection() {
 
         {/* View More / Pagination Area */}
         {displayLimit < teamData.length && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="mt-20 flex flex-col items-center gap-6"
           >
             <div className="flex items-center gap-2">
               {[...Array(Math.ceil(teamData.length / 6))].map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-8 bg-indigo-600' : 'w-2 bg-slate-200'}`} 
+                <div
+                  key={i}
+                  className={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-8 bg-indigo-600' : 'w-2 bg-slate-200'}`}
                 />
               ))}
             </div>
 
-            <button 
+            <button
               onClick={showMore}
               className="group flex items-center gap-3 px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-xl shadow-indigo-200 transition-all active:scale-95"
             >

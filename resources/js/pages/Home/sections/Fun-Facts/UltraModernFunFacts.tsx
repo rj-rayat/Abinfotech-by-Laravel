@@ -11,8 +11,8 @@ const Counter = ({ value, duration = 2.5 }: { value: number; duration?: number }
 
   useEffect(() => {
     if (isInView) {
-      const controls = animate(count, value, { 
-        duration: duration, 
+      const controls = animate(count, value, {
+        duration: duration,
         ease: [0.16, 1, 0.3, 1] // Custom snappy ease-out curve
       });
       return controls.stop;
@@ -23,31 +23,31 @@ const Counter = ({ value, duration = 2.5 }: { value: number; duration?: number }
 };
 
 const statsData = [
-  { 
-    label: "Happy Customers", 
-    value: 308, 
-    icon: Users, 
+  {
+    label: "Happy Customers",
+    value: 308,
+    icon: Users,
     color: "text-blue-400",
     bgGlow: "group-hover:shadow-blue-500/20"
   },
-  { 
-    label: "Cups of Coffee", 
-    value: 9, 
-    icon: Coffee, 
+  {
+    label: "Cups of Coffee",
+    value: 9,
+    icon: Coffee,
     color: "text-amber-400",
     bgGlow: "group-hover:shadow-amber-500/20"
   },
-  { 
-    label: "Innovations", 
-    value: 957, 
-    icon: Lightbulb, 
+  {
+    label: "Innovations",
+    value: 957,
+    icon: Lightbulb,
     color: "text-purple-400",
     bgGlow: "group-hover:shadow-purple-500/20"
   },
-  { 
-    label: "Great Projects", 
-    value: 624, 
-    icon: Target, 
+  {
+    label: "Great Projects",
+    value: 624,
+    icon: Target,
     color: "text-emerald-400",
     bgGlow: "group-hover:shadow-emerald-500/20"
   }
@@ -56,15 +56,15 @@ const statsData = [
 export default function UltraModernFunFacts() {
   return (
     <section className="relative py-32 bg-background overflow-hidden selection:bg-sky-500/30">
-     
-      
+
+
       {/* Subtle Ambient Glows */}
       {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none" /> */}
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header Section */}
         <div className="flex flex-col items-center text-center mb-24">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -73,17 +73,17 @@ export default function UltraModernFunFacts() {
             <Sparkles className="w-4 h-4 text-sky-400" />
             <span>Proven Track Record</span>
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-black font-koulen text-primary mb-6"
+            className="text-5xl md:text-7xl font-extrabold uppercase font-blinker text-primary mb-6"
           >
             Numbers that <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600">Matter.</span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -107,7 +107,7 @@ export default function UltraModernFunFacts() {
             >
               {/* Hover Spotlight Effect (CSS Only) */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+
               <div className="relative z-10 flex flex-col justify-between h-full gap-8">
                 {/* Icon Header */}
                 <div className="flex items-center justify-between">
@@ -116,10 +116,10 @@ export default function UltraModernFunFacts() {
                   </div>
                   <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/20" />
                 </div>
-                
+
                 {/* Number & Label */}
                 <div>
-                  <h3 className="text-5xl md:text-6xl font-koulen text-primary mb-2 tracking-widest flex items-baseline gap-1 drop-shadow-2xl">
+                  <h3 className="text-5xl md:text-6xl font-blinker text-primary mb-2 tracking-widest flex items-baseline gap-1 drop-shadow-2xl">
                     <Counter value={stat.value} />
                     <span className={`${stat.color} text-3xl font-sans font-bold`}>+</span>
                   </h3>

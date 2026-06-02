@@ -48,86 +48,111 @@ const reviews = [
 ];
 
 export default function ReviewCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ delay: 5000 })]);
+  // Embla configuration with clean scroll behavior
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { 
+      loop: true, 
+      align: 'start',
+      containScroll: 'keepSnaps'
+    }, 
+    [Autoplay({ delay: 5000, stopOnInteraction: false })]
+  );
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   return (
-    <section className="py-24 bg-background overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-24 bg-background text-foreground relative overflow-hidden">
+      {/* Subtle Ambient Background Light */}
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-indigo-500/5 dark:bg-indigo-500/[0.02] blur-[150px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Header with Navigation */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
-              <span className="font-bold text-primary uppercase tracking-widest text-sm">Testimonials</span>
+              <span className="font-bold text-muted-foreground uppercase tracking-widest text-xs">Testimonials</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-black text-primary font-koulen tracking-tight">
-              What our <span className="text-indigo-600">Clients Say.</span>
+            <h2 className="text-4xl md:text-6xl font-black font-blinker tracking-tight text-foreground uppercase">
+              What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-500">Clients Say.</span>
             </h2>
           </div>
 
+          {/* Navigation Buttons (Fixed colors for light/dark mode) */}
           <div className="flex gap-3">
             <button
               onClick={scrollPrev}
-              className="p-4 rounded-full text-white border border-slate-200 bg-secondary hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
+              className="p-4 rounded-full border border-border bg-card text-card-foreground hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all shadow-sm active:scale-95"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollNext}
-              className="p-4 rounded-full text-white border border-slate-200 bg-secondary hover:bg-indigo-600 hover:text-white transition-all shadow-sm"
+              className="p-4 rounded-full border border-border bg-card text-card-foreground hover:bg-indigo-600 dark:hover:bg-indigo-500 hover:text-white transition-all shadow-sm active:scale-95"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Carousel */}
-        <div className="embla overflow-visible" ref={emblaRef}>
-          <div className="embla__container flex gap-6">
+        {/* 🚀 Carousel Wrapper (Overflow-visible to prevent card cutting) */}
+        <div className="overflow-visible" ref={emblaRef}>
+          {/* -ml-6 and pl-6 approach fixes the card overlapping and spacing perfectly */}
+          <div className="flex -ml-6">
             {reviews.map((review) => (
-              <div key={review.id} className="embla__slide flex-[0_0_100%] md:flex-[0_0_45%] lg:flex-[0_0_31%] min-w-0">
-                <div className="bg-background p-10 rounded-[2.5rem] border border-gray-200 shadow-xl shadow-slate-200/40 h-full flex flex-col group hover:bg-indigo-600 transition-all duration-500">
-                 <div className='flex justify-between'>
-
-
-                  <div className="flex gap-1 mb-4">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400 group-hover:fill-white group-hover:text-white transition-colors" />
-                  ))}
-                </div>
-
-                <div>
-                         <Quote className="w-10 h-10 text-indigo-100 group-hover:text-indigo-500 mb-6 transition-colors" />
+              <div 
+                key={review.id} 
+                className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333333%] pl-6 box-border min-w-0"
+              >
+                <motion.div 
+                  whileHover={{ y: -6 }}
+                  className="bg-card/70 dark:bg-white/[0.01] p-10 rounded-[2.5rem] border border-border/80 dark:border-white/[0.05] shadow-xl shadow-slate-200/30 dark:shadow-black/40 h-full flex flex-col justify-between group hover:bg-indigo-600 dark:hover:bg-indigo-600 transition-all duration-500 backdrop-blur-md"
+                >
+                  <div>
+                    {/* Top Section: Stars & Quote */}
+                    <div className="flex justify-between items-center mb-8">
+                      <div className="flex gap-1">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className="w-4 h-4 fill-amber-400 text-amber-400 group-hover:fill-white group-hover:text-white transition-colors" 
+                          />
+                        ))}
+                      </div>
+                      <Quote className="w-8 h-8 text-indigo-500/20 dark:text-indigo-400/20 group-hover:text-white/30 transition-colors transform rotate-180" />
                     </div>
-                 </div>
 
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8 group-hover:text-white transition-colors flex-grow">
-                    "{review.comment}"
-                  </p>
+                    {/* Review Text */}
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 group-hover:text-white/90 transition-colors font-medium">
+                      "{review.comment}"
+                    </p>
+                  </div>
 
-                  <div className="flex items-center gap-4 pt-6 border-t border-slate-50 group-hover:border-indigo-500">
+                  {/* User Profile Info */}
+                  <div className="flex items-center gap-4 pt-6 border-t border-border/60 group-hover:border-white/20 transition-colors">
                     <img
                       src={review.image}
                       alt={review.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-white"
+                      className="w-12 h-12 rounded-full object-cover border-2 border-background group-hover:border-white/50 transition-colors shadow-md"
                     />
                     <div>
-                      <h4 className="font-bold text-slate-900 group-hover:text-white">{review.name}</h4>
-                      <p className="text-sm text-slate-400 group-hover:text-indigo-200">{review.role}</p>
+                      <h4 className="font-bold text-foreground group-hover:text-white transition-colors">
+                        {review.name}
+                      </h4>
+                      <p className="text-xs font-semibold text-muted-foreground group-hover:text-indigo-200 dark:group-hover:text-indigo-200 transition-colors">
+                        {review.role}
+                      </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );
 }
-
-

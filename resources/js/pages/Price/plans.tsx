@@ -44,7 +44,7 @@ export default function PricingSection() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex justify-center items-center gap-2 mb-4">
@@ -52,24 +52,24 @@ export default function PricingSection() {
             <span className="text-indigo-600 font-bold uppercase tracking-[0.2em] text-sm">Flexible Pricing</span>
             <span className="h-[2px] w-8 bg-indigo-600"></span>
           </div>
-          
-          <h2 className="text-5xl md:text-6xl font-black text-primary font-koulen tracking-tight mb-8">
+
+          <h2 className="text-5xl md:text-6xl font-black text-primary font-blinker tracking-tight mb-8">
             Choose Your <span className="text-indigo-600">Growth Plan.</span>
           </h2>
 
           {/* Monthly / Yearly Toggle */}
           <div className="inline-flex items-center gap-1 p-1.5 bg-white border border-slate-100 shadow-sm rounded-2xl">
-            <button 
+            <button
               onClick={() => setBillingPeriod('monthly')}
               className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${billingPeriod === 'monthly' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-900'}`}
             >
               Monthly
             </button>
-            <button 
+            <button
               onClick={() => setBillingPeriod('yearly')}
               className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${billingPeriod === 'yearly' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-900'}`}
             >
-              Yearly 
+              Yearly
               <span className="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-md font-black uppercase">Save 20%</span>
             </button>
           </div>
@@ -85,8 +85,8 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className={`relative rounded-[2.5rem] bg-white p-10 flex flex-col justify-between border transition-all duration-500 ${
-                plan.isPopular 
-                  ? 'border-indigo-600 shadow-2xl shadow-indigo-200/50 lg:scale-105 z-10' 
+                plan.isPopular
+                  ? 'border-indigo-600 shadow-2xl shadow-indigo-200/50 lg:scale-105 z-10'
                   : 'border-slate-100 shadow-xl shadow-slate-200/30 hover:border-slate-300'
               }`}
             >
@@ -107,7 +107,7 @@ export default function PricingSection() {
 
                 {/* Pricing Area */}
                 <div className="flex items-baseline gap-2 mb-8 pb-8 border-b border-slate-50">
-                  <span className="text-5xl font-black text-slate-950 font-koulen tracking-tight">
+                  <span className="text-5xl font-black text-slate-950 font-blinker tracking-tight">
                     {billingPeriod === 'yearly' ? `$${parseInt(plan.price.replace('$', '')) * 10 - 20}` : plan.price}
                   </span>
                   <span className="text-slate-400 font-medium text-sm">/ {plan.period}</span>
@@ -128,10 +128,10 @@ export default function PricingSection() {
               </div>
 
               {/* Action Button */}
-              <button 
+              <button
                 className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] ${
-                  plan.isPopular 
-                    ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/20' 
+                  plan.isPopular
+                    ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-500/20'
                     : 'bg-slate-50 hover:bg-slate-900 text-slate-900 hover:text-white border border-slate-100'
                 }`}
               >

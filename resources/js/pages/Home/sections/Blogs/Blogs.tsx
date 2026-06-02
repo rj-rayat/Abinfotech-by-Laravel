@@ -46,7 +46,7 @@ export default function BlogSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-6xl font-black text-primary font-koulen tracking-tight"
+            className="text-5xl md:text-6xl font-black text-primary font-blinker tracking-tight"
           >
             Our Last <span className="text-indigo-600">News.</span>
           </motion.h2>

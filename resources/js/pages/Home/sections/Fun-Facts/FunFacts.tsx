@@ -14,7 +14,7 @@ const Counter = ({ value }: { value: number }) => {
       let start = 0;
       const end = value;
       const duration = 2000;
-      const increment = end / (duration / 16); 
+      const increment = end / (duration / 16);
 
       const timer = setInterval(() => {
         start += increment;
@@ -48,14 +48,14 @@ export default function FunFacts() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-koulen text-secondary tracking-wider mb-4"
+            className="text-4xl md:text-6xl font-blinker text-secondary tracking-wider mb-4"
           >
             Fun Facts
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-gray-400 max-w-2xl mx-auto"
@@ -75,16 +75,16 @@ export default function FunFacts() {
               className="relative group"
             >
               <div className="absolute inset-0 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-white/20 transition-all shadow-2xl" />
-              
+
               <div className="relative p-8 flex flex-col items-center">
                 <div className={`p-4 rounded-2xl bg-gradient-to-br ${stat.color} mb-6 shadow-lg shadow-black/20`}>
                   {React.cloneElement(stat.icon as React.ReactElement<any>, { className: "text-white w-8 h-8" })}
                 </div>
-                
-                <h3 className="text-5xl md:text-6xl font-koulen text-primary mb-2 tracking-tighter">
+
+                <h3 className="text-5xl md:text-6xl font-blinker text-primary mb-2 tracking-tighter">
                   <Counter value={stat.value} />+
                 </h3>
-                
+
                 <p className="text-gray-400 font-medium text-center uppercase tracking-widest text-xs">
                   {stat.label}
                 </p>

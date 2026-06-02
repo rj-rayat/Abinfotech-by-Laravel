@@ -49,19 +49,19 @@ export default function ProjectSection() {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:items-end justify-between mb-16 gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex col-span-1 items-center gap-3 mb-4">
               <div className="h-[2px] w-10 bg-indigo-600"></div>
               <span className="text-indigo-600 font-bold uppercase tracking-widest text-sm">Selected Works</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-black text-primary font-koulen tracking-tight">
+            <h2 className="text-5xl md:text-6xl font-black text-primary font-blinker tracking-tight">
               Our Premium <span className="text-indigo-600">Projects.</span>
             </h2>
           </div>
 
           {/* Tab Filters - Scrollable on Mobile */}
-          <div className="flex flex-wrap gap-2 md:justify-end">
+          <div className="flex col-span-2 flex-wrap gap-2 md:justify-end">
             {categories.map((cat) => (
               <button
                 key={cat}

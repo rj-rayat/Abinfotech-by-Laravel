@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, User, Tag, ArrowUpRight, Search, TrendingUp, Grid, List } from 'lucide-react';
+import { Calendar, User, Tag, ArrowUpRight, Search, Award } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
 const blogPosts = [
@@ -10,7 +10,7 @@ const blogPosts = [
     category: "Programming",
     date: "13 Mar 2026",
     author: "Admin",
-    image: "/images/blog1.jpg", // আপনার ইমেজ পাথ দিন
+    image: "/images/blog1.jpg", 
     excerpt: "Branding has been around since 350 A.D and is derived from the word Brandr, meaning to burn. By the 1500s, it had come to mean the mark that ranchers burned on cattle to signify ownership. Yet branding today is more than just a look or a logo...",
     featured: true
   },
@@ -43,43 +43,46 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="bg-background min-h-screen  pb-24 selection:bg-indigo-500/30">
-      
-      {/* 1. Page Header (Modern Clean Breadcrumb & Title) */}
-      <div className="relative py-20 bg-background  overflow-hidden">
+    <div className="bg-background text-foreground min-h-screen pb-24 selection:bg-indigo-500/30">
+
+      {/* ================= 1. PAGE HEADER ================= */}
+      <div className="relative py-24 bg-background overflow-hidden border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+        {/* Ambient Top Light */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-500/10 dark:bg-indigo-500/[0.03] blur-[100px] rounded-full pointer-events-none" />
+        
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <span className="text-xs font-black uppercase tracking-[0.3em] text-indigo-600 block mb-3">Insights & Trends</span>
-          <h1 className="text-5xl md:text-7xl font-black text-primary font-koulen tracking-tight mb-4">
-            Our Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">News.</span>
+          <span className="text-xs font-black uppercase tracking-[0.3em] text-indigo-600 dark:text-indigo-400 block mb-3">Insights & Trends</span>
+          <h1 className="text-5xl md:text-7xl font-black text-foreground font-blinker tracking-tight mb-4 uppercase">
+            Our Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-500">News.</span>
           </h1>
-          <div className="flex items-center justify-center gap-2 text-sm font-semibold text-slate-400">
-             <Link href="/">
-                                            Home
-                        </Link>  
+          <div className="flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground">
+            <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              Home
+            </Link>
             <span>•</span>
-            <span className="text-slate-600">Our recent news</span>
+            <span className="text-foreground/80">Our recent news</span>
           </div>
         </div>
       </div>
 
-      {/* 2. Main Layout Container */}
+      {/* ================= 2. MAIN LAYOUT CONTAINER ================= */}
       <div className="max-w-7xl mx-auto px-6 mt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
+
           {/* ================= LEFT SIDE: BLOG FEED ================= */}
           <div className="lg:col-span-8 space-y-12">
-            
-            {/* Category Pills Slider (Modern Touch) */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+
+            {/* Category Pills Slider (Fixed dynamic styling) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider whitespace-nowrap border transition-all ${
+                  className={`px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider whitespace-nowrap border transition-all active:scale-95 ${
                     activeCategory === cat
                       ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                      : 'bg-white border-slate-100 text-slate-500 hover:border-slate-300 hover:text-slate-900'
+                      : 'bg-card/50 dark:bg-white/[0.02] border-border dark:border-white/[0.05] text-muted-foreground hover:border-indigo-500/50 hover:text-foreground'
                   }`}
                 >
                   {cat}
@@ -95,26 +98,26 @@ export default function BlogPage() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group bg-background rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/30 overflow-hidden hover:shadow-2xl hover:shadow-indigo-100/50 hover:border-indigo-100 transition-all duration-500 flex flex-col"
+                  transition={{ delay: index * 0.1, ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
+                  className="group bg-card/40 dark:bg-white/[0.01] rounded-[2.5rem] border border-border/80 dark:border-white/[0.04] shadow-xl shadow-slate-200/20 dark:shadow-black/40 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 dark:hover:shadow-black/60 hover:border-indigo-500/50 dark:hover:border-indigo-500/30 transition-all duration-500 flex flex-col backdrop-blur-md"
                 >
                   {/* Image Wrapper */}
-                  <div className="relative overflow-hidden aspect-[21/9] w-full bg-slate-900">
-                    <img 
-                      src={post.image} 
-                      alt={post.title} 
-                      className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                  <div className="relative overflow-hidden aspect-[21/9] w-full bg-muted">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover opacity-90 dark:opacity-75 transition-transform duration-700 group-hover:scale-102"
                     />
-                    
+
                     {/* Floating Date Badge */}
-                    <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2">
-                      <Calendar size={14} />
+                    <div className="absolute top-6 left-6 bg-slate-950/50 dark:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2">
+                      <Calendar size={13} />
                       {post.date}
                     </div>
 
                     {/* Meta Glass Bar */}
-                    <div className="absolute bottom-6 right-6 bg-slate-950/40 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full text-white text-xs font-semibold flex items-center gap-1.5">
-                      <User size={14} className="text-indigo-400" />
+                    <div className="absolute bottom-6 right-6 bg-slate-950/50 dark:bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full text-white text-xs font-semibold flex items-center gap-1.5">
+                      <User size={13} className="text-indigo-400" />
                       <span>By {post.author}</span>
                     </div>
                   </div>
@@ -123,30 +126,30 @@ export default function BlogPage() {
                   <div className="p-8 md:p-10 flex-grow flex flex-col justify-between">
                     <div>
                       {/* Tag */}
-                      <div className="flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-widest mb-4">
+                      <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-widest mb-4">
                         <Tag size={12} className="stroke-[3]" />
                         {post.category}
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-2xl md:text-3xl font-bold primary mb-4 group-hover:text-indigo-600 transition-colors leading-tight">
+                      <h2 className="text-2xl md:text-3xl font-bold font-blinker tracking-tight text-foreground mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight uppercase">
                         {post.title}
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-slate-500 leading-relaxed font-medium mb-8 line-clamp-3">
+                      <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-medium mb-8 line-clamp-3">
                         {post.excerpt}
                       </p>
                     </div>
 
                     {/* Dynamic Read More Trigger */}
-                    <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
-                        Continue Reading <div className="h-[2px] w-8 bg-indigo-600" />
+                    <div className="pt-6 border-t border-border/60 flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
+                        Continue Reading <div className="h-[2px] w-8 bg-indigo-600 dark:bg-indigo-500" />
                       </div>
-                      
-                      <div className="w-12 h-12 bg-slate-50 text-slate-900 group-hover:bg-indigo-600 group-hover:text-white rounded-2xl flex items-center justify-center transition-all group-hover:rotate-45">
-                        <ArrowUpRight size={20} />
+
+                      <div className="w-12 h-12 bg-muted dark:bg-white/[0.03] border border-border dark:border-white/[0.05] text-foreground group-hover:bg-indigo-600 dark:group-hover:bg-indigo-500 group-hover:text-white rounded-2xl flex items-center justify-center transition-all group-hover:rotate-45 shadow-sm">
+                        <ArrowUpRight size={18} />
                       </div>
                     </div>
                   </div>
@@ -156,59 +159,58 @@ export default function BlogPage() {
 
           </div>
 
-
           {/* ================= RIGHT SIDE: MODERN SIDEBAR ================= */}
           <div className="lg:col-span-4 space-y-10">
-            
-            {/* Widget 1: Premium Search Card */}
-            <div className="bg-background rounded-3xl p-6 border border-slate-100 shadow-xl shadow-slate-200/30">
-              <h3 className="text-lg font-bold text-primary mb-4 flex items-center gap-2">
+
+            {/* Widget 1: Premium Search Card (গ্লাসমরফিজম ইনপুট ফিক্স) */}
+            <div className="bg-card/40 dark:bg-white/[0.01] rounded-[2rem] p-6 border border-border/80 dark:border-white/[0.04] shadow-xl shadow-slate-200/20 dark:shadow-black/40 backdrop-blur-md">
+              <h3 className="text-base font-bold text-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
                 Search Articles
               </h3>
               <div className="relative">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Type to search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                  className="w-full pl-12 pr-4 py-4 bg-muted/50 dark:bg-black/20 border border-border dark:border-white/[0.05] rounded-2xl text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-500 focus:bg-background transition-all text-foreground font-medium placeholder:text-muted-foreground/60"
                 />
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
               </div>
             </div>
 
-            {/* Widget 2: About Us Bento Box */}
-            <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-xl shadow-indigo-200">
+            {/* Widget 2: About Us Bento Box (ডার্ক-ফ্রেন্ডলি শ্যাডো ও গ্রেডিয়েন্ট) */}
+            <div className="bg-indigo-600 dark:bg-indigo-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-xl shadow-indigo-600/10 dark:shadow-black/50">
               <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/topography.png')]" />
-              
+
               <div className="relative z-10">
                 <span className="text-[10px] font-black uppercase tracking-widest text-indigo-200 block mb-2">Who we are</span>
-                <h3 className="text-3xl font-black font-koulen tracking-tight mb-4">About Us</h3>
+                <h3 className="text-3xl font-black font-blinker tracking-tight mb-4 uppercase">About Us</h3>
                 <p className="text-indigo-100 text-sm leading-relaxed mb-6 font-medium">
                   Do you believe that your brand needs help from a creative team? Contact us to start working for your project!
                 </p>
-                <button className="w-full py-4 bg-white hover:bg-slate-900 text-indigo-600 hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md">
+                <button className="w-full py-4 bg-white hover:bg-zinc-950 text-indigo-600 hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md active:scale-95">
                   Read More
                 </button>
               </div>
             </div>
 
             {/* Widget 3: Elegant Banner Ad */}
-            <div className="bg-background rounded-[2.5rem] border border-slate-100 p-6 shadow-xl shadow-slate-200/30 overflow-hidden relative group cursor-pointer">
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 relative mb-4">
-                <img 
-                  src="/images/banner-ad.jpg" 
-                  alt="Banner Ad" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            <div className="bg-card/40 dark:bg-white/[0.01] rounded-[2.5rem] border border-border/80 dark:border-white/[0.04] p-6 shadow-xl shadow-slate-200/20 dark:shadow-black/40 overflow-hidden relative group cursor-pointer backdrop-blur-md">
+              <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-muted relative mb-4">
+                <img
+                  src="/images/banner-ad.jpg"
+                  alt="Banner Ad"
+                  className="w-full h-full object-cover opacity-90 dark:opacity-80 transition-transform duration-700 group-hover:scale-103"
                 />
-                <div className="absolute top-4 left-4 bg-slate-950/60 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-md">
+                <div className="absolute top-4 left-4 bg-slate-950/70 dark:bg-black/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border border-white/10">
                   Sponsored
                 </div>
               </div>
-              <h4 className="text-base font-bold text-primary mb-2 group-hover:text-indigo-600 transition-colors">
+              <h4 className="text-base font-bold text-foreground mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors font-blinker tracking-tight uppercase">
                 Grow your business infrastructure with AI solutions
               </h4>
-              <p className="text-slate-400 text-xs font-medium">Explore premium enterprise packages.</p>
+              <p className="text-muted-foreground text-xs font-medium">Explore premium enterprise packages.</p>
             </div>
 
           </div>

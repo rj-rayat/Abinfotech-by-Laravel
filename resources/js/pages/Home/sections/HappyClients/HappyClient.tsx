@@ -25,7 +25,7 @@ export default function HappyClient() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-black text-primary font-koulen tracking-tight"
+          className="text-4xl md:text-5xl font-black text-primary font-blinker tracking-tight"
         >
           Trusted by <span className="text-indigo-600">Industry Leaders.</span>
         </motion.h2>
