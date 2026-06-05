@@ -73,7 +73,7 @@ export default function Hero() {
 
 
         {/* ================= SLIDE CONTENT WRAPPER ================= */}
-        <div className="relative border-4 p-5 w-full max-w-7xl mx-auto px-6 z-10 mb-12  rounded-2xl shadow-2xl">
+        <div className="relative  p-5 w-full max-w-7xl mx-auto px-6 z-10 mb-12  rounded-2xl ">
           <div className="relative h-[420px] md:h-[400px] flex items-center">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div

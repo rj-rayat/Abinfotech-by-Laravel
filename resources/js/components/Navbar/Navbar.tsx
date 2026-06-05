@@ -37,7 +37,7 @@ const [isScrolled, setIsScrolled] = useState(false)
                   className={cn(
                       "flex h-16 items-center justify-between transition-all duration-300 px-6",
                       isScrolled
-                        ? "w-[95%] fixed top-1 z-50  md:w-11/12 rounded-full mt-2 border bg-background/80 backdrop-blur-md shadow-lg"
+                        ? "w-[95%] fixed top-1 z-50  md:w-11/12 rounded-full mt-2 border bg-background backdrop-blur-md shadow-lg"
                         : "w-full border-b bg-background"
                     )}
                   >

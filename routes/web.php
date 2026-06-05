@@ -27,7 +27,7 @@ Route::get('/contact', function () {
     return Inertia::render('Contact/Contact');
 })->name('contact');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
