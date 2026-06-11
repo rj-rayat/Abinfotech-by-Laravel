@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\UserManagementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,10 +29,18 @@ Route::get('/contact', function () {
     return Inertia::render('Contact/Contact');
 })->name('contact');
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    //User management routes_____
+    Route::get('/users',[UserManagementController::class,'index'])->name('users.index');
+    Route::get('/users/store',[UserManagementController::class,'store'])->name('users.store');
+
+    // Site Setting Route
+    Route::get('/settings', [SiteSettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings/update', [SiteSettingController::class, 'update'])->name('settings.update');
 });
 
 require __DIR__.'/settings.php';

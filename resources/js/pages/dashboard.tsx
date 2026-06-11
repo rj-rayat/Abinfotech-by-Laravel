@@ -1,19 +1,28 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/admin/dashboard',
     },
 ];
 
 export default function Dashboard() {
+    const {globalSettings} = usePage().props as any
+
+  const faviconUrl = globalSettings?.favicon_path 
+        ? `/storage/${globalSettings.favicon_path}` 
+        : '/default-favicon.ico';
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head>
+      <link rel="icon" type="image/x-icon" href={faviconUrl} />
+      <title>{globalSettings?.site_name || 'Control Panel'}</title>
+    </Head>
+            
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">

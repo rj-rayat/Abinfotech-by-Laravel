@@ -14,11 +14,12 @@ import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
+import { ThemeToggle } from './Navbar/theme';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        url: '/dashboard',
+        url: '/admin/dashboard',
         icon: LayoutGrid,
     },
 ];
@@ -98,6 +99,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         <AppLogo />
                     </Link>
 
+                    
+
                     {/* Desktop Navigation */}
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
@@ -122,6 +125,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 ))}
                             </NavigationMenuList>
                         </NavigationMenu>
+
+                       
                     </div>
 
                     <div className="ml-auto flex items-center space-x-2">
@@ -152,6 +157,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 ))}
                             </div>
                         </div>
+                      
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="size-10 rounded-full p-1">
@@ -174,7 +180,9 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                 <div className="border-sidebar-border/70 flex w-full border-b">
                     <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
                         <Breadcrumbs breadcrumbs={breadcrumbs} />
+                         <h1>Bread</h1>
                     </div>
+                    
                 </div>
             )}
         </>

@@ -4,6 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @php
+            $globalSettings = \App\Models\SiteSetting::first();
+            $faviconUrl = ($globalSettings && $globalSettings->favicon_path) 
+                ? asset('storage/' . $globalSettings->favicon_path) 
+                : asset('default-favicon.ico'); 
+    @endphp
+    <link rel="icon" type="image/x-icon" href="{{ $faviconUrl }}"></script>
+    <title inertia>{{ config('app.name', 'AB Infotech Ltd') }}</title>
+
+    @routes
+    @viteReactRefresh
+    @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
+    @inertiaHead
+
+
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
                 '(prefers-color-scheme: dark)').matches)) {

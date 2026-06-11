@@ -4,16 +4,34 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, Layers, LayoutGrid, Search, Settings, User } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        url: '/dashboard',
+        url: '/admin/dashboard',
         icon: LayoutGrid,
     },
 ];
+
+const systemNavItems:NavItem[]=[
+    {
+        title: 'Global Setting',
+        url: '/admin/settings', // 
+        icon: Settings, // 
+    },
+    {
+        title: 'Page Management',
+        url: '/admin/pages', // এখানে ঢুকলে সব পেজের লিস্ট আর তাদের সেকশন আসবে
+        icon: Layers,
+    },
+    {
+        title:"User Management",
+        url:"/admin/users",
+        icon: User
+    }
+]
 
 const footerNavItems: NavItem[] = [
     {
@@ -35,7 +53,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/admin/dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
@@ -45,6 +63,13 @@ export function AppSidebar() {
 
             <SidebarContent>
                 <NavMain items={mainNavItems} />
+
+                <div className="px-3 py-2">
+                    <h2 className="mb-2 px-4 text-xs font-semibold tracking-tight text-muted-foreground/60 group-data-[collapsible=icon]:hidden">
+                        Management
+                    </h2>
+                    <NavMain items={systemNavItems} />
+                </div>
             </SidebarContent>
 
             <SidebarFooter>
