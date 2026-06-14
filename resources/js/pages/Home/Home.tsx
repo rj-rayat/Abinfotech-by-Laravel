@@ -23,7 +23,16 @@ interface GlobalSettings {
   og_description: string
 }
 
-export default function Home() {
+interface Props {
+    
+    seo?: {
+        meta_title?: string;
+        meta_description?: string;
+        meta_keywords?: string;
+    } | null;
+}
+
+export default function Home({ seo }: Props) {
   const { global_settings } = usePage<{ global_settings : GlobalSettings }>().props;
   
   return (
@@ -32,14 +41,18 @@ export default function Home() {
             <title>{global_settings?.seo_meta_title || 'Welcome'}</title>
             <meta name="description" content={global_settings?.seo_meta_description || ''} />
             <meta name="keywords" content={global_settings?.seo_meta_keywords || ''} />
+
+            <title>{seo?.meta_title || "Welcome to AB Infotech LTD"}</title>
+            <meta name="description" content={seo?.meta_description || "Default description for AB Infotech LTD"} />
+            <meta name="keywords" content={seo?.meta_keywords || "web development, AI solutions, laravel, react"} />
             
-            {/* ডাইনামিক ফেভিকন লিংক */}
+          
             <link rel="icon" type="image/png" href={`/storage/${global_settings?.favicon_path}`} />
 
             {/* Open Graph Tags */}
             <meta property="og:title" content={global_settings?.og_title || ''} />
             <meta property="og:description" content={global_settings?.og_description || ''} />
-        </Head> {/* 🎯 এই যে ভাই, স্ল্যাশটা আগে দিয়ে সুন্দর করে ক্লোজ করে দিলাম! */}
+        </Head> 
         
         <Hero/>
         <UltraModernFunFacts/>

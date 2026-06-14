@@ -136,12 +136,12 @@ export default function SiteSettings({ settings }: Props) {
                                 <CardContent className="space-y-6">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1.5">
-                                            <Label htmlFor="site_name">Company Name</Label>
+                                            <Label htmlFor="site_name">Site Name</Label>
                                             <Input id="site_name" value={data.site_name} onChange={(e) => setData('site_name', e.target.value)} className="rounded-xl" />
                                             {errors.site_name && <p className="text-xs text-red-500">{errors.site_name}</p>}
                                         </div>
                                         <div className="space-y-1.5">
-                                            <Label htmlFor="site_title">Tagline</Label>
+                                            <Label htmlFor="site_title">Site Title</Label>
                                             <Input id="site_title" value={data.site_title || ''} onChange={(e) => setData('site_title', e.target.value)} className="rounded-xl" />
                                         </div>
                                     </div>

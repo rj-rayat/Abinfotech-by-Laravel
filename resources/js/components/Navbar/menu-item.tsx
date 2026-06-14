@@ -10,43 +10,6 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { Link } from "@inertiajs/react";
 
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Digital Marketing with Freelancing",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "Smart sell, Smart Career",
-  },
-  {
-    title: "Web Design with AI",
-    href: "",
-    description:
-      "You will learn extraordinary website design",
-  },
-  {
-    title: "Graphics Design",
-    href: "",
-    description:
-      "Paint your dream in tool",
-  },
-  {
-    title: "Office Management System",
-    href: "",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Web Development with PHP and Laravel",
-    href: "",
-    description:
-      "Learn most demandable technology of software industry",
-  },
-  {
-    title: "Full Stack Web Development with MERN and AI",
-    href: "/docs/primitives/tooltip",
-    description:
-      "Your career path is here",
-  },
-];
 
 export default function MenuItem() {
   return (
@@ -71,8 +34,8 @@ export default function MenuItem() {
        
         <NavigationMenuItem>
           <NavigationMenuTrigger className="">Portfolio</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className=" w-auto  p-2.5">
+          <NavigationMenuContent className="bg-background">
+            <ul className=" w-auto  p-2.5 ">
              
              <li className="">
                 <ListItem className="mt-2.5" href="">

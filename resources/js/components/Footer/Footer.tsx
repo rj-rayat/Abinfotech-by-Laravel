@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Twitter, Mail, ArrowRight } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 
 export default function Footer() {
+  const {global_settings}= usePage().props as any
+
   return (
     <footer className="relative bg-[#0a0a0a] pt-24 pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -68,7 +71,7 @@ export default function Footer() {
                 </h4>
                 <a href="mailto:info@abinfotech.com.bd" className="text-slate-400 hover:text-white transition-colors flex items-center gap-3 mb-8 font-medium">
                   <Mail size={18} className="text-indigo-500" />
-                  info@abinfotech.com.bd
+                  {global_settings?.company_email}
                 </a>
 
                 {/* Social Icons */}
@@ -84,7 +87,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <div className="pt-12 border-t border-white/5 text-slate-500 text-sm">
-              <p>© 2026. All rights reserved by <span className="text-white font-bold">AB Infotech LTD</span>. We are tracking any intention of piracy.</p>
+              <p>{global_settings?.copyright_text}</p>
             </div>
           </div>
         </div>

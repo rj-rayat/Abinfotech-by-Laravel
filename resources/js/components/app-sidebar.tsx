@@ -23,7 +23,7 @@ const systemNavItems:NavItem[]=[
     },
     {
         title: 'Page Management',
-        url: '/admin/pages', // এখানে ঢুকলে সব পেজের লিস্ট আর তাদের সেকশন আসবে
+        url: '/admin/page-management',
         icon: Layers,
     },
     {
