@@ -37,6 +37,7 @@ export default function EditHome({ page }: Props) {
                     >
                         <ArrowLeft className="h-4 w-4" />
                     </Link>
+
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">{page.title} Customizer</h1>
                         <p className="text-muted-foreground text-sm">Select a section to customize its content, layouts, and data fields.</p>
@@ -64,20 +65,27 @@ export default function EditHome({ page }: Props) {
                         </div>
                     </Link>
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+                    {/* Hero Edit */}
+                    <Link
+                        href={route('admin.page_management.home.hero.index')}
+                        className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer block"
+                    >
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-purple-500/10 text-purple-500 rounded-lg border border-purple-500/10 group-hover:scale-105 transition-transform">
                                 <Sparkles className="h-5 w-5" />
                             </div>
                             <div className="space-y-1">
                                 <h3 className="font-semibold text-base group-hover:text-primary transition-colors">2. Hero Section</h3>
-                                <p className="text-xs text-muted-foreground">Update Main Heading, Subtitles, CTA Buttons, and Background Graphics.</p>
+                                <p className="text-xs text-muted-foreground">Update Main Title, Subtitle, CTA buttons, and background media.</p>
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
-
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+                    <Link
+                        href={route('admin.page_management.home.fun_facts.index')}
+                        className="..."
+                    >
+                        <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-amber-500/10 text-amber-500 rounded-lg border border-amber-500/10 group-hover:scale-105 transition-transform">
                                 <BarChart3 className="h-5 w-5" />
@@ -89,6 +97,9 @@ export default function EditHome({ page }: Props) {
                         </div>
                     </div>
 
+                    </Link>
+
+                    
 
                     <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                         <div className="flex items-start gap-4">

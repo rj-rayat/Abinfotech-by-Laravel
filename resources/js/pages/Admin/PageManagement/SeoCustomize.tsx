@@ -79,7 +79,7 @@ export default function SeoCustomize({ existingSeos }: Props) {
 
                 <div className="flex items-center gap-4">
                     <Link 
-                        href={route('admin.page_management.index')} 
+                        href={'page-management/home/edit'} 
                         className="p-2 hover:bg-muted rounded-lg border transition-colors"
                     >
                         <ArrowLeft className="h-4 w-4" />

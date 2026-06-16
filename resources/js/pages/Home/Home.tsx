@@ -23,16 +23,27 @@ interface GlobalSettings {
   og_description: string
 }
 
-interface Props {
-    
-    seo?: {
-        meta_title?: string;
-        meta_description?: string;
-        meta_keywords?: string;
-    } | null;
+interface DB_Slide {
+  id: number;
+  title: string;
+  desc: string;
+  color_theme: string;
 }
 
-export default function Home({ seo }: Props) {
+interface Props {
+  seo?: any;
+  slides: DB_Slide[]; 
+  funFacts: DB_FunFact;
+}
+
+interface DB_FunFact {
+  card1_label: string; card1_value: number;
+  card2_label: string; card2_value: number;
+  card3_label: string; card3_value: number;
+  card4_label: string; card4_value: number;
+}
+
+export default function Home({ seo, slides, funFacts }: Props) {
   const { global_settings } = usePage<{ global_settings : GlobalSettings }>().props;
   
   return (
@@ -54,8 +65,8 @@ export default function Home({ seo }: Props) {
             <meta property="og:description" content={global_settings?.og_description || ''} />
         </Head> 
         
-        <Hero/>
-        <UltraModernFunFacts/>
+        <Hero slides={slides} />
+        <UltraModernFunFacts funFacts={funFacts} />
         <AboutAgency/>
         <Service/>
         <ProjectSection/>

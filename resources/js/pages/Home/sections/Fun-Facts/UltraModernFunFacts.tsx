@@ -2,7 +2,17 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Users, Coffee, Lightbulb, Target, Sparkles } from 'lucide-react';
 
-// ১. অ্যাডভান্সড ফ্রেমার মোশন কাউন্টার (বাটার স্মুথ পারফরম্যান্স)
+
+interface DB_FunFact {
+  card1_label: string; card1_value: number;
+  card2_label: string; card2_value: number;
+  card3_label: string; card3_value: number;
+  card4_label: string; card4_value: number;
+}
+
+interface FunFactsProps {
+  funFacts: DB_FunFact;
+}
 const Counter = ({ value, duration = 2.5 }: { value: number; duration?: number }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -22,38 +32,39 @@ const Counter = ({ value, duration = 2.5 }: { value: number; duration?: number }
   return <motion.span ref={ref}>{rounded}</motion.span>;
 };
 
-const statsData = [
+
+export default function UltraModernFunFacts({ funFacts }: FunFactsProps) {
+  const statsData = [
   {
-    label: "Happy Customers",
-    value: 308,
+    label: funFacts?.card1_label || "Happy Customers",
+    value: funFacts?.card1_value ,
     icon: Users,
     color: "text-blue-400",
     bgGlow: "group-hover:shadow-blue-500/20"
   },
   {
-    label: "Cups of Coffee",
-    value: 9,
+    label: funFacts?.card2_label || "Cups of Coffee",
+    value:funFacts?.card2_value ?? 12,
     icon: Coffee,
     color: "text-amber-400",
     bgGlow: "group-hover:shadow-amber-500/20"
   },
   {
-    label: "Innovations",
-    value: 957,
+    label:funFacts?.card3_label || "Innovations",
+    value:funFacts?.card3_value ?? 957,
     icon: Lightbulb,
     color: "text-purple-400",
     bgGlow: "group-hover:shadow-purple-500/20"
   },
   {
-    label: "Great Projects",
-    value: 624,
+    label: funFacts?.card4_label ||"Great Projects",
+    value: funFacts?.card4_value ?? 624,
     icon: Target,
     color: "text-emerald-400",
     bgGlow: "group-hover:shadow-emerald-500/20"
   }
 ];
 
-export default function UltraModernFunFacts() {
   return (
     <section className="relative py-32 bg-background overflow-hidden selection:bg-sky-500/30">
 
