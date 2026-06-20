@@ -86,22 +86,25 @@ export default function EditHome({ page }: Props) {
                         className="..."
                     >
                         <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-amber-500/10 text-amber-500 rounded-lg border border-amber-500/10 group-hover:scale-105 transition-transform">
-                                <BarChart3 className="h-5 w-5" />
-                            </div>
-                            <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">3. Fun Facts</h3>
-                                <p className="text-xs text-muted-foreground">Manage animated statistics counters (e.g., Projects Done, Happy Clients).</p>
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-amber-500/10 text-amber-500 rounded-lg border border-amber-500/10 group-hover:scale-105 transition-transform">
+                                    <BarChart3 className="h-5 w-5" />
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors">3. Fun Facts</h3>
+                                    <p className="text-xs text-muted-foreground">Manage animated statistics counters (e.g., Projects Done, Happy Clients).</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     </Link>
 
-                    
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+
+                    <Link
+                        href={route('admin.page_management.home.about_agency.index')}
+                        className="block group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                    >
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-lg border border-emerald-500/10 group-hover:scale-105 transition-transform">
                                 <UserCheck className="h-5 w-5" />
@@ -111,19 +114,24 @@ export default function EditHome({ page }: Props) {
                                 <p className="text-xs text-muted-foreground">Customize agency introduction story, short experience summary, and skills list.</p>
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-indigo-500/10 text-indigo-500 rounded-lg border border-indigo-500/10 group-hover:scale-105 transition-transform">
-                                <Briefcase className="h-5 w-5" />
-                            </div>
-                            <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">5. Service Section</h3>
-                                <p className="text-xs text-muted-foreground">Edit service grid content headers, subheadings, and icons representation.</p>
+
+                    <Link href={route('admin.page_management.home.services.index')}>
+                        <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-indigo-500/10 text-indigo-500 rounded-lg border border-indigo-500/10 group-hover:scale-105 transition-transform">
+                                    <Briefcase className="h-5 w-5" />
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors">5. Service Section</h3>
+                                    <p className="text-xs text-muted-foreground">Edit service grid content headers, subheadings, and icons representation.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
+
+
 
 
                     <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">

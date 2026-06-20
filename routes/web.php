@@ -1,14 +1,18 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutAgencyController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\PageManagementController;
 use App\Http\Controllers\Admin\SeoSettingController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Models\AboutAgency;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
 use App\Models\SeoSetting;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,10 +20,14 @@ Route::get('/', function () {
     $seo = SeoSetting::where('page_slug', 'home')->first();
     $slides = HeroSlide::orderBy('sort_order', 'asc')->get();
     $funFacts = FunFact::firstOrCreate(['id' => 1]);
+    $aboutAgency = AboutAgency::firstOrCreate(['id' => 1]);
+    $services = Service::orderBy('sort_order', 'asc')->get();
     return Inertia::render('Home/Home', [
         'seo' => $seo,
         'slides' => $slides,
-        'funFacts' => $funFacts
+        'funFacts' => $funFacts,
+        'aboutAgency' => $aboutAgency,
+        'services'     => $services
     ]);
 })->name('home');
 
@@ -77,6 +85,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::prefix('page-management/home/fun-facts')->name('page_management.home.fun_facts.')->group(function () {
         Route::get('/', [FunFactController::class, 'index'])->name('index');
         Route::post('/update', [FunFactController::class, 'update'])->name('update');
+    });
+
+    //  Home About Agency Routes
+    Route::prefix('page-management/home/about-agency')->name('page_management.home.about_agency.')->group(function () {
+        Route::get('/', [AboutAgencyController::class, 'index'])->name('index');
+        Route::post('/update', [AboutAgencyController::class, 'update'])->name('update');
+    });
+
+    // Home Services Resource Routes
+    Route::prefix('page-management/home/services')->name('page_management.home.services.')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/create', [ServiceController::class, 'create'])->name('create');
+        Route::post('/store', [ServiceController::class, 'store'])->name('store');
+        Route::get('/{service}/edit', [ServiceController::class, 'edit'])->name('edit');
+        Route::post('/{service}/update', [ServiceController::class, 'update'])->name('update');
+        Route::delete('/{service}/destroy', [ServiceController::class, 'destroy'])->name('destroy');
     });
 
 
