@@ -4,8 +4,7 @@ import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import ab from "../../../../../../public/ab.png"
 import team from "../../../../../../public/team.png"
-
-interface AboutAgencyData {
+interface aboutAgency {
   badge: string;
   title: string;
   description: string;
@@ -20,8 +19,9 @@ interface AboutAgencyData {
   button_url: string;
 }
 
+
 interface AboutAgencyProps {
-  aboutAgency?: AboutAgencyData; // Data passed from Laravel controller via Inertia
+  aboutAgency?: aboutAgency; // Data passed from Laravel controller via Inertia
 }
 
 export default function AboutAgency({ aboutAgency }: AboutAgencyProps) {

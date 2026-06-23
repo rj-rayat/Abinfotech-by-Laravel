@@ -46,14 +46,28 @@ export default function Create() {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                            <label className="text-xs font-medium">Lucide Icon Name</label>
-                            <select value={data.icon_name} onChange={e => setData('icon_name', e.target.value)} className="w-full p-2 bg-background border rounded-lg text-sm">
-                                <option value="Monitor">Monitor (Web Design)</option>
-                                <option value="SearchCheck">SearchCheck (SEO)</option>
-                                <option value="Smartphone">Smartphone (App Dev)</option>
-                                <option value="Megaphone">Megaphone (Advertise)</option>
-                                <option value="Cpu">Cpu (Custom Software)</option>
-                            </select>
+                          
+                            <label className="text-xs font-medium">Lucide Icon Name / Component Tag</label>
+                            <input
+                                type="text"
+                                placeholder="e.g., <MonitorIcon /> or search-check"
+                                onChange={e => {
+                                    let val = e.target.value;
+
+                                    // Regex to strip < /> and common Lucide suffixes like 'Icon' or 'lucide'
+                                    // Example: "<MonitorIcon />" -> "Monitor"
+                                    const cleanedName = val
+                                        .replace(/[<\s\/>]/g, '')                // Remove <, >, spaces and slashes
+                                        .replace(/(Icon|icon|Lucide|lucide)$/, ''); // Strip trailing 'Icon' or 'lucide' words
+
+                                    setData('icon_name', cleanedName);
+                                }}
+                                className="w-full p-2 bg-background border rounded-lg text-sm font-mono placeholder:font-sans"
+                                required
+                            />
+                            <p className="text-[10px] text-muted-foreground mt-1">
+                                Paste lucide icon name here
+                            </p>
                         </div>
                         <div className="space-y-1.5">
                             <label className="text-xs font-medium">Color Theme Preset</label>

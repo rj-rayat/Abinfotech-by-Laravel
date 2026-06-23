@@ -30,10 +30,46 @@ interface DB_Slide {
   color_theme: string;
 }
 
+interface aboutAgency {
+  badge: string;
+  title: string;
+  description: string;
+  years_of_experience: number;
+  main_image: string | null;
+  small_image: string | null;
+  feature_1: string;
+  feature_2: string;
+  feature_3: string;
+  feature_4: string;
+  button_text: string;
+  button_url: string;
+}
+
+interface DBService {
+  id: number;
+  title: string;
+  description: string;
+  icon_name: string;   // ডাটাবেজে সেভ থাকবে যেমন: 'Monitor', 'SearchCheck', '<SmartphoneIcon />' ইত্যাদি
+  color_theme: string; // 'blue-cyan', 'purple-indigo', ইত্যাদি
+  sort_order: number;
+}
+interface DBProject {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  link: string;
+  github_link?: string; 
+}
+
 interface Props {
   seo?: any;
   slides: DB_Slide[]; 
   funFacts: DB_FunFact;
+  aboutAgency:aboutAgency;
+  services : DBService[];
+  projects:DBProject[];
+  
 }
 
 interface DB_FunFact {
@@ -43,7 +79,7 @@ interface DB_FunFact {
   card4_label: string; card4_value: number;
 }
 
-export default function Home({ seo, slides, funFacts }: Props) {
+export default function Home({ seo, slides, funFacts, services, aboutAgency, projects }: Props) {
   const { global_settings } = usePage<{ global_settings : GlobalSettings }>().props;
   
   return (
@@ -67,9 +103,9 @@ export default function Home({ seo, slides, funFacts }: Props) {
         
         <Hero slides={slides} />
         <UltraModernFunFacts funFacts={funFacts} />
-        <AboutAgency/>
-        <Service/>
-        <ProjectSection/>
+        <AboutAgency aboutAgency={aboutAgency} />
+        <Service services={services} />
+        <ProjectSection projects = {projects}  />
         <ReviewCarousel/>
         <HappyClient/>
         <BlogSection/>

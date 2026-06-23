@@ -29,7 +29,7 @@ export default function Edit({ service }: EditProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         // Passing the direct component prop 'service.id' to the route parameter
         post(route('admin.page_management.home.services.update', service.id));
     };
@@ -52,59 +52,69 @@ export default function Edit({ service }: EditProps) {
                     <div className="grid grid-cols-3 gap-4">
                         <div className="col-span-2 space-y-1.5">
                             <label className="text-xs font-medium">Service Title</label>
-                            <input 
-                                type="text" 
-                                value={data.title} 
-                                onChange={e => setData('title', e.target.value)} 
-                                className="w-full p-2 bg-background border rounded-lg text-sm" 
-                                required 
+                            <input
+                                type="text"
+                                value={data.title}
+                                onChange={e => setData('title', e.target.value)}
+                                className="w-full p-2 bg-background border rounded-lg text-sm"
+                                required
                             />
                             {errors.title && <p className="text-xs text-destructive">{errors.title}</p>}
                         </div>
                         <div className="space-y-1.5">
                             <label className="text-xs font-medium">Sort Order</label>
-                            <input 
-                                type="number" 
-                                value={data.sort_order} 
-                                onChange={e => setData('sort_order', parseInt(e.target.value) || 0)} 
-                                className="w-full p-2 bg-background border rounded-lg text-sm" 
-                                required 
+                            <input
+                                type="number"
+                                value={data.sort_order}
+                                onChange={e => setData('sort_order', parseInt(e.target.value) || 0)}
+                                className="w-full p-2 bg-background border rounded-lg text-sm"
+                                required
                             />
                         </div>
                     </div>
 
                     <div className="space-y-1.5">
                         <label className="text-xs font-medium">Description</label>
-                        <textarea 
-                            rows={4} 
-                            value={data.description} 
-                            onChange={e => setData('description', e.target.value)} 
-                            className="w-full p-2 bg-background border rounded-lg text-sm leading-relaxed" 
-                            required 
+                        <textarea
+                            rows={4}
+                            value={data.description}
+                            onChange={e => setData('description', e.target.value)}
+                            className="w-full p-2 bg-background border rounded-lg text-sm leading-relaxed"
+                            required
                         />
                         {errors.description && <p className="text-xs text-destructive">{errors.description}</p>}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                            <label className="text-xs font-medium">Lucide Icon Name</label>
-                            <select 
-                                value={data.icon_name} 
-                                onChange={e => setData('icon_name', e.target.value)} 
-                                className="w-full p-2 bg-background border rounded-lg text-sm"
-                            >
-                                <option value="Monitor">Monitor (Web Design)</option>
-                                <option value="SearchCheck">SearchCheck (SEO)</option>
-                                <option value="Smartphone">Smartphone (App Dev)</option>
-                                <option value="Megaphone">Megaphone (Advertise)</option>
-                                <option value="Cpu">Cpu (Custom Software)</option>
-                            </select>
+                            <label className="text-xs font-medium">Lucide Icon Name / Component Tag</label>
+                            <input
+                                type="text"
+                                placeholder="e.g., <MonitorIcon /> or search-check"
+                                value={data.icon_name}
+                                onChange={e => {
+                                    let val = e.target.value;
+
+                                    // Regex to strip < /> and common Lucide suffixes like 'Icon' or 'lucide'
+                                    // Example: "<MonitorIcon />" -> "Monitor"
+                                    const cleanedName = val
+                                        .replace(/[<\s\/>]/g, '')                // Remove <, >, spaces and slashes
+                                        .replace(/(Icon|icon|Lucide|lucide)$/, ''); // Strip trailing 'Icon' or 'lucide' words
+
+                                    setData('icon_name', cleanedName);
+                                }}
+                                className="w-full p-2 bg-background border rounded-lg text-sm font-mono placeholder:font-sans"
+                                required
+                            />
+                            <p className="text-[10px] text-muted-foreground mt-1">
+                                Paste lucide icon name here
+                            </p>
                         </div>
                         <div className="space-y-1.5">
                             <label className="text-xs font-medium">Color Theme Preset</label>
-                            <select 
-                                value={data.color_theme} 
-                                onChange={e => setData('color_theme', e.target.value)} 
+                            <select
+                                value={data.color_theme}
+                                onChange={e => setData('color_theme', e.target.value)}
                                 className="w-full p-2 bg-background border rounded-lg text-sm"
                             >
                                 <option value="blue-cyan">Blue to Cyan</option>
@@ -116,9 +126,9 @@ export default function Edit({ service }: EditProps) {
                     </div>
 
                     <div className="flex justify-end pt-2">
-                        <button 
-                            type="submit" 
-                            disabled={processing} 
+                        <button
+                            type="submit"
+                            disabled={processing}
                             className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-semibold rounded-xl text-sm hover:bg-primary/90 transition-colors shadow-md"
                         >
                             <Save className="h-4 w-4" /> {processing ? 'Updating...' : 'Save Changes'}

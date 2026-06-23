@@ -18,10 +18,10 @@ export default function Index({ services }: Props) {
     return (
         <AppLayout>
             <Head title="Manage Services" />
-            <div className="p-6 max-w-5xl mx-auto space-y-6">
+            <div className="p-4 w-5xl mx-auto space-y-6 ">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href={''} className="p-2 hover:bg-muted rounded-lg border transition-colors">
+                        <Link href={'edit'} className="p-2 hover:bg-muted rounded-lg border transition-colors">
                             <ArrowLeft className="h-4 w-4" />
                         </Link>
                         <div>

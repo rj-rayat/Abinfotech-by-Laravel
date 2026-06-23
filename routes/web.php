@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutAgencyController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\PageManagementController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SiteSettingController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\AboutAgency;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
+use App\Models\Project;
 use App\Models\SeoSetting;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
@@ -22,12 +24,14 @@ Route::get('/', function () {
     $funFacts = FunFact::firstOrCreate(['id' => 1]);
     $aboutAgency = AboutAgency::firstOrCreate(['id' => 1]);
     $services = Service::orderBy('sort_order', 'asc')->get();
+    $projects = Project::orderBy('sort_order', 'asc')->get();
     return Inertia::render('Home/Home', [
         'seo' => $seo,
         'slides' => $slides,
         'funFacts' => $funFacts,
         'aboutAgency' => $aboutAgency,
-        'services'     => $services
+        'services'     => $services,
+        'projects' => $projects
     ]);
 })->name('home');
 
@@ -101,6 +105,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/{service}/edit', [ServiceController::class, 'edit'])->name('edit');
         Route::post('/{service}/update', [ServiceController::class, 'update'])->name('update');
         Route::delete('/{service}/destroy', [ServiceController::class, 'destroy'])->name('destroy');
+    });
+
+    //  Home Projects Management Routes 
+    Route::prefix('page-management/home/projects')->name('page_management.home.projects.')->group(function () {
+        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        Route::post('/store', [ProjectController::class, 'store'])->name('store');
+        Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
+        Route::post('/{project}/update', [ProjectController::class, 'update'])->name('update');
+        Route::delete('/{project}/destroy', [ProjectController::class, 'destroy'])->name('destroy');
     });
 
 
