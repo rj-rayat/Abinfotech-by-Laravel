@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutAgencyController;
+use App\Http\Controllers\Admin\ClientLogoController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\PageManagementController;
@@ -8,13 +9,16 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\AboutAgency;
+use App\Models\ClientLogo;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
 use App\Models\Project;
 use App\Models\SeoSetting;
 use App\Models\Service;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,13 +29,17 @@ Route::get('/', function () {
     $aboutAgency = AboutAgency::firstOrCreate(['id' => 1]);
     $services = Service::orderBy('sort_order', 'asc')->get();
     $projects = Project::orderBy('sort_order', 'asc')->get();
+    $testimonials = Testimonial::orderBy('sort_order', 'asc')->get();
+    $clientLogos = ClientLogo::orderBy('sort_order', 'asc')->get();
     return Inertia::render('Home/Home', [
         'seo' => $seo,
         'slides' => $slides,
         'funFacts' => $funFacts,
         'aboutAgency' => $aboutAgency,
         'services'     => $services,
-        'projects' => $projects
+        'projects' => $projects,
+        'testimonials' => $testimonials,
+        'clientLogos' => $clientLogos
     ]);
 })->name('home');
 
@@ -115,6 +123,26 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
         Route::post('/{project}/update', [ProjectController::class, 'update'])->name('update');
         Route::delete('/{project}/destroy', [ProjectController::class, 'destroy'])->name('destroy');
+    });
+
+   Route::prefix('page-management/home/testimonials')->name('page_management.home.testimonials.')->group(function () {
+        Route::get('/', [TestimonialController::class, 'index'])->name('index');
+        Route::get('/create', [TestimonialController::class, 'create'])->name('create');
+        Route::post('/store', [TestimonialController::class, 'store'])->name('store');
+
+        Route::get('/{testimonial}/edit', [TestimonialController::class, 'edit'])->name('edit');
+        Route::post('/{testimonial}/update', [TestimonialController::class, 'update'])->name('update');
+        Route::delete('/{testimonial}/destroy', [TestimonialController::class, 'destroy'])->name('destroy');
+    });
+
+    // Home Client Logos Management Routes
+    Route::prefix('page-management/home/client-logos')->name('page_management.home.client_logos.')->group(function () {
+        Route::get('/', [ClientLogoController::class, 'index'])->name('index');
+        Route::get('/create', [ClientLogoController::class, 'create'])->name('create');
+        Route::post('/store', [ClientLogoController::class, 'store'])->name('store');
+        Route::get('/{clientLogo}/edit', [ClientLogoController::class, 'edit'])->name('edit');
+        Route::post('/{clientLogo}/update', [ClientLogoController::class, 'update'])->name('update');
+        Route::delete('/{clientLogo}/destroy', [ClientLogoController::class, 'destroy'])->name('destroy');
     });
 
 

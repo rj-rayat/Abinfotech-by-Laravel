@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 
-// আপনার লোগো লিস্ট (Screenshot_17.png অনুযায়ী)
+
 const clientLogos = [
   { id: 1, name: "Janobani", src: "/17627650844.png" },
   { id: 2, name: "Businesslancer", src: "businesslancer.png" },
@@ -14,10 +14,21 @@ const clientLogos = [
   { id: 7, name: "ghorerbazar", src: "/ghorerbazar.png" },
 ];
 
-// ইনফিনিট লুপের জন্য লিস্ট ডাবল করা হয়েছে
+interface clientLogoDB {
+  id: number;
+  name: string;
+  image: string;
+  sort_order?: number;
+}
+
+interface HappyClientProps {
+  logos?: clientLogoDB[];
+}
+
+
 const scrollingLogos = [...clientLogos, ...clientLogos];
 
-export default function HappyClient() {
+export default function HappyClient({ logos = [] }: HappyClientProps) {
   return (
     <section className="py-20 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
@@ -42,15 +53,17 @@ export default function HappyClient() {
           }}
           className="flex flex-nowrap gap-16 md:gap-24 items-center whitespace-nowrap px-12"
         >
-          {scrollingLogos.map((logo, index) => (
+          {logos.map((logo, index) => (
             <div
               key={`${logo.id}-${index}`}
-              className="w-32 md:w-48 h-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 opacity-50 hover:opacity-100 cursor-pointer"
+              className="w-32 md:w-48 h-20 flex items-center justify-center  hover:grayscale-0 transition-all duration-500 opacity-50 hover:opacity-100 cursor-pointer"
             >
               <img
-                src={logo.src}
+                src={logo.image?.startsWith('/') || logo.image?.startsWith('http')
+                  ? logo.image
+                  : `/storage/${logo.image}`}
                 alt={logo.name}
-                className="max-w-full max-h-full object-contain filter drop-shadow-sm"
+                className="max-w-full max-h-full object-contain "
               />
             </div>
           ))}

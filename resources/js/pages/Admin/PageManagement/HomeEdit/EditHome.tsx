@@ -138,45 +138,60 @@ export default function EditHome({ page }: Props) {
                         className="flex items-center gap-2 px-4 py-2 hover:bg-muted rounded-lg text-sm font-medium"
                     >
                         <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 bg-pink-500/10 text-pink-500 rounded-lg border border-pink-500/10 group-hover:scale-105 transition-transform">
-                                <FolderGit2 className="h-5 w-5" />
-                            </div>
-                            <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">6. Projects Section</h3>
-                                <p className="text-xs text-muted-foreground">Manage case studies grid title, categories filter, and showcase alignments.</p>
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-pink-500/10 text-pink-500 rounded-lg border border-pink-500/10 group-hover:scale-105 transition-transform">
+                                    <FolderGit2 className="h-5 w-5" />
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors">6. Projects Section</h3>
+                                    <p className="text-xs text-muted-foreground">Manage case studies grid title, categories filter, and showcase alignments.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </Link>
-                    
 
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+                    <Link
+                        href={route('admin.page_management.home.testimonials.index')}
+                        className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer block"
+                    >
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-cyan-500/10 text-cyan-500 rounded-lg border border-cyan-500/10 group-hover:scale-105 transition-transform">
                                 <MessageSquareQuote className="h-5 w-5" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">7. Reviews</h3>
-                                <p className="text-xs text-muted-foreground">Customize customer feedback testimonials slider section headlines.</p>
+                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
+                                    7. Reviews
+                                </h3>
+                                <p className="text-xs text-muted-foreground">
+                                    Customize customer feedback testimonials slider section headlines.
+                                </p>
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+
+
+
+                    <Link
+                        href={route('admin.page_management.home.client_logos.index')}
+                        className="block group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                    >
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-teal-500/10 text-teal-500 rounded-lg border border-teal-500/10 group-hover:scale-105 transition-transform">
                                 <Handshake className="h-5 w-5" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">8. Industry Partners</h3>
-                                <p className="text-xs text-muted-foreground">Manage continuous scrolling partner logos grid row settings.</p>
+                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">
+                                    8. Industry Partners
+                                </h3>
+                                <p className="text-xs text-muted-foreground">
+                                    Manage continuous scrolling partner logos grid row settings.
+                                </p>
                             </div>
                         </div>
-                    </div>
-
+                    </Link>
 
                     <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                         <div className="flex items-start gap-4">

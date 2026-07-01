@@ -49,8 +49,8 @@ interface DBService {
   id: number;
   title: string;
   description: string;
-  icon_name: string;   // ডাটাবেজে সেভ থাকবে যেমন: 'Monitor', 'SearchCheck', '<SmartphoneIcon />' ইত্যাদি
-  color_theme: string; // 'blue-cyan', 'purple-indigo', ইত্যাদি
+  icon_name: string;   
+  color_theme: string; 
   sort_order: number;
 }
 interface DBProject {
@@ -62,6 +62,23 @@ interface DBProject {
   github_link?: string; 
 }
 
+interface DBTestimonial {
+  id: number;
+  name: string;
+  designation: string;
+  review: string;
+  rating: number;
+  image: string | null;
+  sort_order: number;
+}
+
+interface clientLogoDB {
+  id: number;
+  name: string;
+  image: string;
+  sort_order?: number;
+}
+
 interface Props {
   seo?: any;
   slides: DB_Slide[]; 
@@ -69,6 +86,9 @@ interface Props {
   aboutAgency:aboutAgency;
   services : DBService[];
   projects:DBProject[];
+  testimonials:DBTestimonial[];
+  clientLogos:clientLogoDB[];
+
   
 }
 
@@ -79,7 +99,7 @@ interface DB_FunFact {
   card4_label: string; card4_value: number;
 }
 
-export default function Home({ seo, slides, funFacts, services, aboutAgency, projects }: Props) {
+export default function Home({ seo, slides, funFacts, services, aboutAgency, projects, testimonials, clientLogos }: Props) {
   const { global_settings } = usePage<{ global_settings : GlobalSettings }>().props;
   
   return (
@@ -106,8 +126,8 @@ export default function Home({ seo, slides, funFacts, services, aboutAgency, pro
         <AboutAgency aboutAgency={aboutAgency} />
         <Service services={services} />
         <ProjectSection projects = {projects}  />
-        <ReviewCarousel/>
-        <HappyClient/>
+        <ReviewCarousel testimonials={testimonials} />
+        <HappyClient logos={clientLogos} />
         <BlogSection/>
     </WebLayout>
   )
