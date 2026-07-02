@@ -28,9 +28,22 @@ class PageManagementController extends Controller
    
 
     public function editHome(Page $page) 
-    {
-        return Inertia::render('Admin/PageManagement/HomeEdit/EditHome', [
-            'page' => $page
-        ]);
+{
+
+    if ($page->slug === 'blog') {
+        return $this->editBlog($page);
     }
+
+  
+    return Inertia::render('Admin/PageManagement/HomeEdit/EditHome', [
+        'page' => $page
+    ]);
+}
+
+public function editBlog(Page $page) 
+{
+    return Inertia::render('Admin/PageManagement/Blog/Index', [
+        'page' => $page
+    ]);
+}
 }

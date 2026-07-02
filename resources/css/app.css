@@ -6,6 +6,51 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+/* React Quill Editor Wrapper Styles */
+.ql-container {
+  font-family: inherit !important;
+  font-size: 0.875rem !important; /* text-sm */
+  min-h: 250px;
+}
+
+/* 🚀 হেডিংগুলোকে জোরপূর্বক বড় এবং স্টাইলিশ করার জন্য (Tailwind v4 ফিক্স) */
+.ql-editor h1 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+.ql-editor h2 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 0.8rem !important;
+  margin-bottom: 0.4rem !important;
+  display: block !important;
+}
+
+.ql-editor p {
+  margin-bottom: 0.5rem !important;
+}
+
+/* ফোকাস করলে যাতে এক্সট্রা কোনো বর্ডার বা আউটলাইন এসে রিঅ্যাক্ট নষ্ট না করে */
+.ql-container.ql-snow {
+  border: none !important;
+}
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  background-color: var(--muted) !important;
+  opacity: 0.9;
+}
+.rounded-editor-box {
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
 @theme {
 
 

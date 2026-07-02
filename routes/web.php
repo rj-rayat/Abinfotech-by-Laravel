@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutAgencyController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ClientLogoController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
@@ -77,10 +78,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/settings/update', [SiteSettingController::class, 'update'])->name('settings.update');
 
     //Page Management Route
+
     Route::get('/page-management', [PageManagementController::class, 'index'])->name('page_management.index');
 
-    //Edit Home Route
+      //Edit Home Route
     Route::get('/page-management/{page:slug}/edit', [PageManagementController::class, 'editHome'])->name('page_management.home');
+   
+    
+
+
+   
     // Page Seo management Routes
     Route::get('/seo-customize', [SeoSettingController::class, 'index'])->name('seo.customize');
     Route::get('/fetch/{slug}', [SeoSettingController::class, 'fetchSeo'])->name('seo.fetch');
@@ -93,6 +100,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::put('/update/{id}', [HeroSectionController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [HeroSectionController::class, 'destroy'])->name('destroy');
     });
+
 
     Route::prefix('page-management/home/fun-facts')->name('page_management.home.fun_facts.')->group(function () {
         Route::get('/', [FunFactController::class, 'index'])->name('index');
@@ -145,6 +153,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/{clientLogo}/destroy', [ClientLogoController::class, 'destroy'])->name('destroy');
     });
 
+   
+
+     //  Admin Blog Management Routes 
+    Route::prefix('page-management/blogs')->name('blogs.')->group(function () {
+       
+        Route::get('/', [BlogController::class, 'index'])->name('index');
+        Route::get('/create', [BlogController::class, 'create'])->name('create');
+
+        Route::post('/store', [BlogController::class, 'store'])->name('store');
+        Route::get('/{blog}/edit', [BlogController::class, 'edit'])->name('edit');
+        Route::post('/{blog}/update', [BlogController::class, 'update'])->name('update');
+        Route::delete('/{blog}/destroy', [BlogController::class, 'destroy'])->name('destroy');
+    });
+    
+   
 
 });
 
