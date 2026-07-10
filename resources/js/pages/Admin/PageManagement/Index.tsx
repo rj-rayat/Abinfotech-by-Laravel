@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { FileText, Edit2, Calendar, Globe, EyeOff, LayoutGrid } from 'lucide-react';
+import { FileText, Edit2, Calendar, Globe, EyeOff, LayoutGrid, Search } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 
 interface PageItem {
@@ -37,6 +37,7 @@ export default function Index({ pages }: Props) {
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                         
                         {pages.map((page) => (
                             <div
                                 key={page.id}

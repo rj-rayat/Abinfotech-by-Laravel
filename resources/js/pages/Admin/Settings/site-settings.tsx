@@ -1,10 +1,10 @@
 import React from 'react';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Globe, Search, Share2, Save, Mail, Phone, MapPin, Copyright } from 'lucide-react';
+import { Globe, Search, Share2, Save, Mail, Phone, MapPin, Copyright, PackageSearch } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { Textarea } from '@/components/ui/textarea';
@@ -115,18 +115,23 @@ export default function SiteSettings({ settings }: Props) {
                 <form onSubmit={handleSubmit} className="w-full">
                     <Tabs defaultValue="general" className="space-y-6">
                         <TabsList className="bg-muted/60 p-1 rounded-xl border border-border flex flex-wrap h-auto gap-1 sm:w-max">
-                            <TabsTrigger value="general" className="rounded-lg gap-2 text-sm py-2">
+                            <TabsTrigger value="general" className="cursor-pointer rounded-lg gap-2 text-sm py-2">
                                 <Globe className="w-4 h-4" /> General Info
                             </TabsTrigger>
-                            <TabsTrigger value="seo" className="rounded-lg gap-2 text-sm py-2">
+                            <TabsTrigger value="seo" className="cursor-pointer rounded-lg gap-2 text-sm py-2">
                                 <Search className="w-4 h-4" /> Google SEO
                             </TabsTrigger>
-                            <TabsTrigger value="social" className="rounded-lg gap-2 text-sm py-2">
+                            <TabsTrigger value="social" className="cursor-pointer rounded-lg gap-2 text-sm py-2">
                                 <Share2 className="w-4 h-4" /> Social SEO
                             </TabsTrigger>
+                            <Link href={route('admin.seo.customize')}>
+                                <TabsTrigger value='page-seo ' className='cursor-pointer rounded-lg gap-2 text-sm py-2'>
+                                    <PackageSearch className="w-4 h-4" /> All Page SEO
+                                </TabsTrigger>
+                            </Link>
                         </TabsList>
 
-                        {/* 🌐 GENERAL INFO TAB */}
+                        {/*  GENERAL INFO TAB */}
                         <TabsContent value="general" className="space-y-6">
                             <Card className="rounded-2xl border-border shadow-sm">
                                 <CardHeader>
@@ -227,7 +232,7 @@ export default function SiteSettings({ settings }: Props) {
                             </Card>
                         </TabsContent>
 
-                        {/* 🔍 GOOGLE SEO TAB */}
+                        {/*  GOOGLE SEO TAB */}
                         <TabsContent value="seo">
                             <Card className="rounded-2xl shadow-sm">
                                 <CardHeader>
@@ -312,7 +317,7 @@ export default function SiteSettings({ settings }: Props) {
                             </Card>
                         </TabsContent>
 
-                        {/* 📱 SOCIAL SEO TAB */}
+                        {/*  SOCIAL SEO TAB */}
                         <TabsContent value="social">
                             <Card className="rounded-2xl shadow-sm">
                                 <CardHeader>

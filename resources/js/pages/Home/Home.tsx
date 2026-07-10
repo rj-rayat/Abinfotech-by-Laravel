@@ -1,6 +1,5 @@
 import WebLayout from '@/layouts/web-layout'
 import { Head, usePage } from '@inertiajs/react'
-import React from 'react'
 import Hero from './sections/hero-section/Hero'
 
 usePage
@@ -79,6 +78,25 @@ interface clientLogoDB {
   sort_order?: number;
 }
 
+interface BlogDB {
+ 
+    id: number;
+    title: string;
+    slug: string;
+    image: string | null; 
+    body: string;
+    seo_meta_title: string | null;
+    seo_meta_description: string | null;
+    seo_meta_keywords: string | null;
+    og_title: string | null;
+    og_description: string | null;
+    og_image: string | null;
+    is_published: boolean;
+    created_at: string;
+    updated_at: string;
+ 
+}
+
 interface Props {
   seo?: any;
   slides: DB_Slide[]; 
@@ -88,7 +106,7 @@ interface Props {
   projects:DBProject[];
   testimonials:DBTestimonial[];
   clientLogos:clientLogoDB[];
-
+  blogs : BlogDB[]
   
 }
 
@@ -99,7 +117,7 @@ interface DB_FunFact {
   card4_label: string; card4_value: number;
 }
 
-export default function Home({ seo, slides, funFacts, services, aboutAgency, projects, testimonials, clientLogos }: Props) {
+export default function Home({ seo, slides, funFacts, services, aboutAgency, projects, testimonials, clientLogos, blogs }: Props) {
   const { global_settings } = usePage<{ global_settings : GlobalSettings }>().props;
   
   return (
@@ -128,7 +146,7 @@ export default function Home({ seo, slides, funFacts, services, aboutAgency, pro
         <ProjectSection projects = {projects}  />
         <ReviewCarousel testimonials={testimonials} />
         <HappyClient logos={clientLogos} />
-        <BlogSection/>
+        <BlogSection blogs ={blogs} />
     </WebLayout>
   )
 }

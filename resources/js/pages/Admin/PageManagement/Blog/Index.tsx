@@ -1,6 +1,6 @@
-import React from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { Plus, Edit2, Trash2, Image as ImageIcon, Search, Calendar, Globe } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Plus, Edit2, Trash2, Image as ImageIcon, Search, Calendar, Globe, Loader2 } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 
 interface Blog {
@@ -18,6 +18,14 @@ interface IndexProps {
 
 export default function Index({ blogs = [] }: IndexProps) {
   const { delete: destroy } = useForm();
+  
+ 
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [blogs]);
 
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to permanently delete this blog post?')) {
@@ -48,8 +56,14 @@ export default function Index({ blogs = [] }: IndexProps) {
           </Link>
         </div>
 
-        {/* Content/Table Section */}
-        {blogs.length === 0 ? (
+       
+        {isLoading ? (
+         
+          <div className="border border-dashed rounded-2xl p-16 text-center bg-card/50 flex flex-col items-center justify-center space-y-3">
+            <Loader2 className="h-8 w-8 text-indigo-600 animate-spin" />
+            <p className="text-sm text-muted-foreground animate-pulse">Loading blogs data...</p>
+          </div>
+        ) : blogs.length === 0 ? (
           <div className="border border-dashed rounded-2xl p-16 text-center bg-card/50">
             <div className="mx-auto w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">
               <Search className="h-6 w-6 text-muted-foreground" />
@@ -73,7 +87,6 @@ export default function Index({ blogs = [] }: IndexProps) {
                 </thead>
                 <tbody className="divide-y text-sm">
                   {blogs.map((blog) => {
-                    
                     const bannerSrc = blog.image?.startsWith('/') || blog.image?.startsWith('http')
                       ? blog.image
                       : `/storage/${blog.image}`;
@@ -81,7 +94,6 @@ export default function Index({ blogs = [] }: IndexProps) {
                     return (
                       <tr key={blog.id} className="hover:bg-muted/20 transition-colors group">
                         
-                        {/* Title & Image column */}
                         <td className="p-4 pl-6">
                           <div className="flex items-center gap-4">
                             <div className="w-20 h-14 border rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center overflow-hidden shadow-inner flex-shrink-0">
@@ -109,12 +121,10 @@ export default function Index({ blogs = [] }: IndexProps) {
                           </div>
                         </td>
 
-                        {/* Slug Column */}
                         <td className="p-4 text-muted-foreground font-mono text-xs max-w-[200px] truncate">
                           /{blog.slug}
                         </td>
 
-                        {/* Created Date Column */}
                         <td className="p-4 text-muted-foreground">
                           <div className="flex items-center gap-1.5 text-xs">
                             <Calendar className="h-3.5 w-3.5" />
@@ -126,7 +136,6 @@ export default function Index({ blogs = [] }: IndexProps) {
                           </div>
                         </td>
 
-                        {/* Action Buttons */}
                         <td className="p-4 text-right pr-6">
                           <div className="flex items-center justify-end gap-2">
                             <Link

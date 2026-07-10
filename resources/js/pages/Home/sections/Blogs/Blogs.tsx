@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, User, ArrowUpRight } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 const blogs = [
   {
@@ -35,7 +36,28 @@ const blogs = [
   }
 ];
 
-export default function BlogSection() {
+interface BlogProps {
+  blogs: {
+    id: number;
+    title: string;
+    slug: string;
+    image: string | null; 
+    body: string;
+    seo_meta_title: string | null;
+    seo_meta_description: string | null;
+    seo_meta_keywords: string | null;
+    og_title: string | null;
+    og_description: string | null;
+    og_image: string | null;
+    is_published: boolean;
+    created_at: string;
+    updated_at: string;
+  }[];
+}
+
+
+
+export default function BlogSection({ blogs }: BlogProps) {
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
@@ -61,41 +83,50 @@ export default function BlogSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer shadow-sm p-2.5 rounded-xl border"
             >
               {/* Image Wrapper */}
-              <div className="relative overflow-hidden rounded-[2.5rem] mb-6 aspect-[4/3] bg-slate-100">
-                <img
-                  src={blog.image}
-                  alt={blog.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
 
-                {/* Floating Category Badge */}
-                <div className={`absolute top-6 left-6 ${blog.color} text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg`}>
-                  {blog.category}
-                </div>
+              <Link href={route('blogs.show', blog.slug)}>
+              <div className="relative overflow-hidden rounded-xl mb-6 aspect-[4/3] bg-slate-100">
+                {blog.image ? (
+                      <img
+                        src={`/storage/${blog.image}`} 
+                        alt={blog.title}
+                        className="w-full h-full object-cover opacity-90 dark:opacity-75 transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground/50 text-xs">
+                        No Image Preview Available
+                      </div>
+                    )}
+
+                
 
                 {/* Glassmorphism Info Bar */}
                 <div className="absolute bottom-6 left-6 right-6 bg-white/20 backdrop-blur-md border border-white/30 p-4 rounded-2xl flex items-center justify-between text-white">
                   <div className="flex items-center gap-4 text-xs font-semibold">
-                    <span className="flex items-center gap-1"><Calendar size={14} /> {blog.date}</span>
-                    <span className="flex items-center gap-1"><User size={14} /> {blog.author}</span>
+                    <span className="flex items-center gap-1">
+                      <Calendar size={14} /> 
+                      {new Date(blog.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+
+                      </span>
+                    
                   </div>
                   <div className="bg-white text-slate-900 p-2 rounded-full transition-transform group-hover:rotate-45">
-                    <ArrowUpRight size={16} />
+                     <Link href={route('blogs.show', blog.slug)}><ArrowUpRight size={16} /> </Link>
                   </div>
                 </div>
               </div>
+              </Link>
+              
 
               {/* Content */}
               <div className="px-2">
                 <h3 className="text-2xl font-bold text-primary mb-4 group-hover:text-indigo-600 transition-colors leading-snug">
                   {blog.title}
                 </h3>
-                <p className="text-slate-500 leading-relaxed line-clamp-2">
-                  {blog.description}
-                </p>
+                
 
                 <div className="mt-6 flex items-center gap-2 text-indigo-600 font-bold text-sm uppercase tracking-wider group-hover:gap-4 transition-all">
                   Read More <div className="h-[2px] w-8 bg-indigo-600"></div>

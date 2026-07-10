@@ -135,7 +135,7 @@ export default function EditHome({ page }: Props) {
 
                     <Link
                         href={route('admin.page_management.home.projects.index')}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-muted rounded-lg text-sm font-medium"
+                        className="flex items-center gap-2   hover:bg-muted rounded-lg text-sm font-medium"
                     >
                         <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                             <div className="flex items-start gap-4">
@@ -193,7 +193,8 @@ export default function EditHome({ page }: Props) {
                         </div>
                     </Link>
 
-                    <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+                   <Link href={route('admin.blogs.index')}>
+                         <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-orange-500/10 text-orange-500 rounded-lg border border-orange-500/10 group-hover:scale-105 transition-transform">
                                 <FileText className="h-5 w-5" />
@@ -204,6 +205,7 @@ export default function EditHome({ page }: Props) {
                             </div>
                         </div>
                     </div>
+                   </Link>
 
                 </div>
             </div>

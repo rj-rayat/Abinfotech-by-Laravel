@@ -4,6 +4,7 @@ import { ArrowLeft, Save, Heading1, Heading2, Bold, Italic, List, Share2, Image 
 import AppLayout from '@/layouts/app-layout';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import RichTextEditor from '@/components/RichTextEditor';
 
 interface Blog {
   id: number;
@@ -117,60 +118,16 @@ export default function Edit({ blog }: EditProps) {
           </div>
 
           {/* Section 2: Rich Text Paragraph Panel */}
-          <div className="border bg-card p-6 rounded-2xl space-y-3 shadow-sm">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">2. Paragraph Panel (Content)</h2>
-            
-            {editor && (
-              <div className="flex flex-wrap gap-1 p-2 bg-muted border border-b-0 rounded-t-xl items-center">
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('heading', { level: 1 }) ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <Heading1 className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('heading', { level: 2 }) ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <Heading2 className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().setParagraph().run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('paragraph') ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <Notebook className="h-4 w-4" />
-                </button>
-                <div className="h-4 w-[1px] bg-border mx-1" />
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().toggleBold().run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('bold') ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <Bold className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().toggleItalic().run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('italic') ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <Italic className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => editor.chain().focus().toggleBulletList().run()}
-                  className={`p-2 rounded hover:bg-background ${editor.isActive('bulletList') ? 'bg-background text-indigo-600 font-bold' : ''}`}
-                >
-                  <List className="h-4 w-4" />
-                </button>
-              </div>
-            )}
-            
-            <EditorContent editor={editor} />
-            {errors.body && <p className="text-red-500 text-xs">{errors.body}</p>}
-          </div>
+       
+                    <div className="border bg-card p-6 rounded-2xl space-y-3 shadow-sm [&_.ql-editor]:min-h-[300px]">
+                      <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">2. Paragraph Panel (Content)</h2>
+                      <RichTextEditor
+                        value={data.body}
+                        onChange={(html) => setData('body', html)}
+                        
+                      />
+                      {errors.body && <p className="text-red-500 text-xs ">{errors.body}</p>}
+                    </div>
 
           {/* Section 3: Google SEO Settings */}
           <div className="border bg-card p-6 rounded-2xl space-y-4 shadow-sm">

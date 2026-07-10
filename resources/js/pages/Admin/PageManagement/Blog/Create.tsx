@@ -71,13 +71,14 @@ export default function Create() {
           </div>
 
           {/* Section 2: Rich Text Paragraph Panel */}
-          <div className="border bg-card p-6 rounded-2xl space-y-3 shadow-sm">
+          <div className="border bg-card p-6 rounded-2xl space-y-3 shadow-sm [&_.ql-editor]:min-h-[300px]">
             <h2 className="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">2. Paragraph Panel (Content)</h2>
             <RichTextEditor
               value={data.body}
               onChange={(html) => setData('body', html)}
+              
             />
-            {errors.body && <p className="text-red-500 text-xs">{errors.body}</p>}
+            {errors.body && <p className="text-red-500 text-xs ">{errors.body}</p>}
           </div>
 
           {/* Section 3: SEO Customization Settings */}

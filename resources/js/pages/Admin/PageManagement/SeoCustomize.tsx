@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, Save, Globe, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -15,6 +17,8 @@ interface Props {
 }
 
 export default function SeoCustomize({ existingSeos }: Props) {
+
+    
  
     const availablePages = [
         { name: 'Home Page', slug: 'home' },
@@ -78,12 +82,12 @@ export default function SeoCustomize({ existingSeos }: Props) {
                 
 
                 <div className="flex items-center gap-4">
-                    <Link 
-                        href={'page-management/home/edit'} 
+                    <div
+                        onClick={()=> window.history.back()}
                         className="p-2 hover:bg-muted rounded-lg border transition-colors"
                     >
                         <ArrowLeft className="h-4 w-4" />
-                    </Link>
+                    </div>
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight">Global SEO Management</h1>
                         <p className="text-muted-foreground text-sm">Configure Search Engine Optimization globally for any specific page.</p>

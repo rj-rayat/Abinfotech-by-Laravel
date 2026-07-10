@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\AboutAgency;
+use App\Models\Blog;
 use App\Models\ClientLogo;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
@@ -32,6 +33,9 @@ Route::get('/', function () {
     $projects = Project::orderBy('sort_order', 'asc')->get();
     $testimonials = Testimonial::orderBy('sort_order', 'asc')->get();
     $clientLogos = ClientLogo::orderBy('sort_order', 'asc')->get();
+    $blogs = Blog::where('is_published', true)
+                 ->latest()
+                 ->get();
     return Inertia::render('Home/Home', [
         'seo' => $seo,
         'slides' => $slides,
@@ -40,7 +44,8 @@ Route::get('/', function () {
         'services'     => $services,
         'projects' => $projects,
         'testimonials' => $testimonials,
-        'clientLogos' => $clientLogos
+        'clientLogos' => $clientLogos,
+        'blogs' => $blogs
     ]);
 })->name('home');
 
@@ -49,7 +54,10 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/project', function () {
-    return Inertia::render('Project/Project');
+    $projects = Project::orderBy('sort_order', 'asc')->get();
+    return Inertia::render('Project/Project', [
+        'projects' => $projects,
+    ]);
 })->name('project');
 
 Route::get('/price', function () {
@@ -57,12 +65,19 @@ Route::get('/price', function () {
 })->name('price');
 
 Route::get('/blogs', function () {
-    return Inertia::render('Blog/Blog');
+    $blogs = Blog::where('is_published', true)
+                 ->latest()
+                 ->get();
+    return Inertia::render('Blog/Blog', [
+        'blogs' => $blogs
+    ]);
 })->name('blog');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact/Contact');
 })->name('contact');
+
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', function () {
@@ -81,8 +96,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/page-management', [PageManagementController::class, 'index'])->name('page_management.index');
 
-      //Edit Home Route
+    //Edit Home Route
     Route::get('/page-management/{page:slug}/edit', [PageManagementController::class, 'editHome'])->name('page_management.home');
+   
+
+
    
     
 

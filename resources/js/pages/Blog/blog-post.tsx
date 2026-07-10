@@ -1,54 +1,45 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, User, Tag, ArrowUpRight, Search, Award } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Calendar, User, Tag, ArrowUpRight, Search } from 'lucide-react';
+import { Head, Link } from '@inertiajs/react';
 
-const blogPosts = [
-  {
-    id: 1,
-    title: "Top 7 Creative Ways to Boost Your Media",
-    category: "Programming",
-    date: "13 Mar 2026",
-    author: "Admin",
-    image: "/images/blog1.jpg", 
-    excerpt: "Branding has been around since 350 A.D and is derived from the word Brandr, meaning to burn. By the 1500s, it had come to mean the mark that ranchers burned on cattle to signify ownership. Yet branding today is more than just a look or a logo...",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Top 6 Articles You Must Read",
-    category: "Agency, Consulting",
-    date: "13 Mar 2026",
-    author: "Admin",
-    image: "/images/blog2.jpg",
-    excerpt: "Branding has been around since 350 A.D and is derived from the word Brandr, meaning to burn. By the 1500s, it had come to mean the mark that ranchers burned on cattle to signify ownership...",
-    featured: false
-  },
-  {
-    id: 3,
-    title: "Tech designer John Doe's latest design",
-    category: "Design, UI/UX",
-    date: "13 Mar 2026",
-    author: "Admin",
-    image: "/images/blog3.jpg",
-    excerpt: "Branding has been around since 350 A.D and is derived from the word Brandr, meaning to burn. By the 1500s, it had come to mean the mark that ranchers burned on cattle to signify ownership...",
-    featured: false
-  }
-];
+interface BlogItem {
+  id: number;
+  title: string;
+  slug: string;
+  image: string | null;
+  body: string;
+  seo_meta_title: string | null;
+  seo_meta_description: string | null;
+  seo_meta_keywords: string | null;
+  og_title: string | null;
+  og_description: string | null;
+  og_image: string | null;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+}
 
-const categories = ["All Stories", "Programming", "Agency, Consulting", "Design, UI/UX", "Marketing"];
+interface BlogPageProps {
+  blogs: BlogItem[]; 
+}
 
-export default function BlogPage() {
-  const [activeCategory, setActiveCategory] = useState("All Stories");
+export default function BlogPage({ blogs = [] }: BlogPageProps) {
   const [searchQuery, setSearchQuery] = useState("");
+
+ 
+  const filteredPosts = blogs.filter((post) => {
+    return post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+           post.body.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   return (
     <div className="bg-background text-foreground min-h-screen pb-24 selection:bg-indigo-500/30">
+      <Head title="Our Recent News & Blogs" />
 
       {/* ================= 1. PAGE HEADER ================= */}
       <div className="relative py-24 bg-background overflow-hidden border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none" />
-        {/* Ambient Top Light */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-500/10 dark:bg-indigo-500/[0.03] blur-[100px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -71,28 +62,15 @@ export default function BlogPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
           {/* ================= LEFT SIDE: BLOG FEED ================= */}
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-10">
 
-            {/* Category Pills Slider (Fixed dynamic styling) */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider whitespace-nowrap border transition-all active:scale-95 ${
-                    activeCategory === cat
-                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                      : 'bg-card/50 dark:bg-white/[0.02] border-border dark:border-white/[0.05] text-muted-foreground hover:border-indigo-500/50 hover:text-foreground'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-
-            {/* Blog Cards Loop */}
-            <div className="space-y-10">
-              {blogPosts.map((post, index) => (
+            {/* 🚀 Dynamic Blog Cards Loop */}
+            {filteredPosts.length === 0 ? (
+              <div className="text-center py-20 bg-card/10 border border-dashed rounded-[2.5rem] p-10">
+                <p className="text-muted-foreground text-sm font-medium">No matching blog posts found!</p>
+              </div>
+            ) : (
+              filteredPosts.map((post, index) => (
                 <motion.article
                   key={post.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -102,67 +80,71 @@ export default function BlogPage() {
                   className="group bg-card/40 dark:bg-white/[0.01] rounded-[2.5rem] border border-border/80 dark:border-white/[0.04] shadow-xl shadow-slate-200/20 dark:shadow-black/40 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 dark:hover:shadow-black/60 hover:border-indigo-500/50 dark:hover:border-indigo-500/30 transition-all duration-500 flex flex-col backdrop-blur-md"
                 >
                   {/* Image Wrapper */}
-                  <div className="relative overflow-hidden aspect-[21/9] w-full bg-muted">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover opacity-90 dark:opacity-75 transition-transform duration-700 group-hover:scale-102"
-                    />
+                  <Link href={route('blogs.show', post.slug)} className="relative overflow-hidden aspect-[21/9] w-full bg-muted block">
+                    {post.image ? (
+                      <img
+                        src={`/storage/${post.image}`} 
+                        alt={post.title}
+                        className="w-full h-full object-cover opacity-90 dark:opacity-75 transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground/50 text-xs">
+                        No Image Preview Available
+                      </div>
+                    )}
 
                     {/* Floating Date Badge */}
                     <div className="absolute top-6 left-6 bg-slate-950/50 dark:bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2">
                       <Calendar size={13} />
-                      {post.date}
+                      {new Date(post.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                     </div>
 
                     {/* Meta Glass Bar */}
                     <div className="absolute bottom-6 right-6 bg-slate-950/50 dark:bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full text-white text-xs font-semibold flex items-center gap-1.5">
                       <User size={13} className="text-indigo-400" />
-                      <span>By {post.author}</span>
+                      <span>By Admin</span>
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Post Details */}
                   <div className="p-8 md:p-10 flex-grow flex flex-col justify-between">
                     <div>
-                      {/* Tag */}
+                      {/* Tags / Keywords Display */}
                       <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-widest mb-4">
                         <Tag size={12} className="stroke-[3]" />
-                        {post.category}
+                        <span className="line-clamp-1">
+                          {post.seo_meta_keywords || 'General'}
+                        </span>
                       </div>
 
-                      {/* Title */}
-                      <h2 className="text-2xl md:text-3xl font-bold font-blinker tracking-tight text-foreground mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight uppercase">
-                        {post.title}
-                      </h2>
-
-                      {/* Excerpt */}
-                      <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-medium mb-8 line-clamp-3">
-                        {post.excerpt}
-                      </p>
+                      {/* Title Linked to Single Post */}
+                      <Link href={route('blogs.show', post.slug)}>
+                        <h2 className="text-2xl md:text-3xl font-bold font-blinker tracking-tight text-foreground mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight line-clamp-2">
+                          {post.title}
+                        </h2>
+                      </Link>
                     </div>
 
                     {/* Dynamic Read More Trigger */}
-                    <div className="pt-6 border-t border-border/60 flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-wider group-hover:gap-4 transition-all">
+                    <Link href={`/blogs/${post.slug}`} className="pt-6 mt-6 border-t border-border/60 flex items-center justify-between group/btn">
+                      <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-wider group-hover/btn:gap-4 transition-all">
                         Continue Reading <div className="h-[2px] w-8 bg-indigo-600 dark:bg-indigo-500" />
                       </div>
 
                       <div className="w-12 h-12 bg-muted dark:bg-white/[0.03] border border-border dark:border-white/[0.05] text-foreground group-hover:bg-indigo-600 dark:group-hover:bg-indigo-500 group-hover:text-white rounded-2xl flex items-center justify-center transition-all group-hover:rotate-45 shadow-sm">
-                        <ArrowUpRight size={18} />
+                         <Link href={route('blogs.show', post.slug)}><ArrowUpRight size={18} /></Link>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 </motion.article>
-              ))}
-            </div>
-
+              ))
+            )}
           </div>
 
           {/* ================= RIGHT SIDE: MODERN SIDEBAR ================= */}
           <div className="lg:col-span-4 space-y-10">
 
-            {/* Widget 1: Premium Search Card (গ্লাসমরফিজম ইনপুট ফিক্স) */}
+            {/* Widget 1: Search Articles */}
             <div className="bg-card/40 dark:bg-white/[0.01] rounded-[2rem] p-6 border border-border/80 dark:border-white/[0.04] shadow-xl shadow-slate-200/20 dark:shadow-black/40 backdrop-blur-md">
               <h3 className="text-base font-bold text-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
                 Search Articles
@@ -179,7 +161,7 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Widget 2: About Us Bento Box (ডার্ক-ফ্রেন্ডলি শ্যাডো ও গ্রেডিয়েন্ট) */}
+            {/* Widget 2: About Us Bento Box */}
             <div className="bg-indigo-600 dark:bg-indigo-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-xl shadow-indigo-600/10 dark:shadow-black/50">
               <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/topography.png')]" />
 
@@ -189,9 +171,9 @@ export default function BlogPage() {
                 <p className="text-indigo-100 text-sm leading-relaxed mb-6 font-medium">
                   Do you believe that your brand needs help from a creative team? Contact us to start working for your project!
                 </p>
-                <button className="w-full py-4 bg-white hover:bg-zinc-950 text-indigo-600 hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md active:scale-95">
+                <Link href="/about" className="block text-center w-full py-4 bg-white hover:bg-zinc-950 text-indigo-600 hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-md active:scale-95">
                   Read More
-                </button>
+                </Link>
               </div>
             </div>
 

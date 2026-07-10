@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Blog;
 
 class PageManagementController extends Controller
 {
-    public function index(Request $request){
-        $pages = Page::select('id', 'title', 'slug', 'status', 'updated_at')->get()->map(function($page) {
+    public function index(Request $request)
+    {
+        $pages = Page::select('id', 'title', 'slug', 'status', 'updated_at')->get()->map(function ($page) {
             return [
                 'id' => $page->id,
                 'title' => $page->title,
@@ -25,25 +27,36 @@ class PageManagementController extends Controller
         ]);
     }
 
-   
 
-    public function editHome(Page $page) 
-{
 
-    if ($page->slug === 'blog') {
-        return $this->editBlog($page);
+    public function editHome(Page $page)
+    {
+
+        if ($page->slug === 'blog') {
+            return $this->editBlog($page);
+        }
+
+        if ($page->slug === 'about') {
+            return $this->editAbout($page);
+        }
+
+
+        return Inertia::render('Admin/PageManagement/HomeEdit/EditHome', [
+            'page' => $page
+        ]);
     }
 
-  
-    return Inertia::render('Admin/PageManagement/HomeEdit/EditHome', [
-        'page' => $page
-    ]);
-}
-
-public function editBlog(Page $page) 
-{
-    return Inertia::render('Admin/PageManagement/Blog/Index', [
-        'page' => $page
-    ]);
-}
+    public function editBlog(Page $page)
+    {
+        return Inertia::render('Admin/PageManagement/Blog/Index', [
+            'page' => $page,
+            'blogs' => Blog::latest()->get()
+        ]);
+    }
+    public function editAbout(Page $page)
+    {
+        return Inertia::render('Admin/PageManagement/About/EditAbout', [
+            'page' => $page,
+        ]);
+    }
 }

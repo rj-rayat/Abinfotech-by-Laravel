@@ -11,6 +11,16 @@ use Inertia\Inertia;
 
 class BlogController extends Controller
 {
+
+    public function show($slug)
+    {
+        
+        $blog = Blog::where('slug', $slug)->firstOrFail();
+
+        return Inertia::render('Blog/Show', [
+            'blog' => $blog
+        ]);
+    }
     public function index()
     {
         return Inertia::render('Admin/PageManagement/Blog/Index', [
@@ -18,13 +28,13 @@ class BlogController extends Controller
         ]);
     }
 
-  
+
     public function create()
     {
         return Inertia::render('Admin/PageManagement/Blog/Create');
     }
 
-  
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -39,7 +49,7 @@ class BlogController extends Controller
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Max 2MB
         ]);
 
-     
+
         $slug = Str::slug($request->title);
         $count = Blog::where('slug', 'LIKE', "{$slug}%")->count();
         $validated['slug'] = $count ? "{$slug}-" . ($count + 1) : $slug;
@@ -53,11 +63,11 @@ class BlogController extends Controller
         if ($request->hasFile('og_image')) {
             $validated['og_image'] = $request->file('og_image')->store('blogs/og_shares', 'public');
         } else {
-            
+
             $validated['og_image'] = $validated['image'] ?? null;
         }
 
-        
+
         $validated['seo_meta_title'] = $request->seo_meta_title ?: $request->title;
         $validated['og_title'] = $request->og_title ?: $request->title;
 
@@ -89,7 +99,7 @@ class BlogController extends Controller
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-   
+
         unset($validated['image']);
         unset($validated['og_image']);
 
@@ -120,7 +130,7 @@ class BlogController extends Controller
         $validated['seo_meta_title'] = $request->seo_meta_title ?: $request->title;
         $validated['og_title'] = $request->og_title ?: $request->title;
 
-        
+
         $blog->update($validated);
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog post updated successfully.');

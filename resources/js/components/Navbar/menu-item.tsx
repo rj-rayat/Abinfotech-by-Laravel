@@ -33,34 +33,11 @@ export default function MenuItem() {
 
        
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="">Portfolio</NavigationMenuTrigger>
-          <NavigationMenuContent className="bg-background">
-            <ul className=" w-auto  p-2.5 ">
-             
-             <li className="">
-                <ListItem className="mt-2.5" href="">
-                  
-                    <Link href="/project" className={navigationMenuTriggerStyle()}>
-                        Our Project
-                    </Link> 
-                </ListItem>
-
-                <ListItem className="mt-2.5" href="">
-                  
-                    <Link href="/niva-wordpress-theme" className={navigationMenuTriggerStyle()}>
-                        Niva Wordpress Theme
-                    </Link> 
-                </ListItem>
-                <ListItem className="mt-2.5" href="">
-                  
-                    <Link href="/venor-wordpress-theme" className={navigationMenuTriggerStyle()}>
-                        Venor Wordpress Theme
-                    </Link> 
-                </ListItem>
-                
-             </li>
-            </ul>
-          </NavigationMenuContent>
+           <NavigationMenuLink asChild>           
+                <Link href="/project" className={navigationMenuTriggerStyle()}>
+                    Portfolio
+                </Link>          
+            </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
             <NavigationMenuLink asChild>           
