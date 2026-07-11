@@ -67,7 +67,7 @@ export default function EditAbout({ page }: Props) {
 
                     {/* Hero Edit */}
                     <Link
-                        href={route('admin.page_management.home.hero.index')}
+                        href={'/admin/page-management/about-hero'}
                         className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer block"
                     >
                         <div className="flex items-start gap-4">

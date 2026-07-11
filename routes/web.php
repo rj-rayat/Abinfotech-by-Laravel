@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutAgencyController;
+use App\Http\Controllers\Admin\AboutHeroController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ClientLogoController;
 use App\Http\Controllers\Admin\FunFactController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\AboutAgency;
+use App\Models\AboutHero;
 use App\Models\Blog;
 use App\Models\ClientLogo;
 use App\Models\FunFact;
@@ -34,8 +36,8 @@ Route::get('/', function () {
     $testimonials = Testimonial::orderBy('sort_order', 'asc')->get();
     $clientLogos = ClientLogo::orderBy('sort_order', 'asc')->get();
     $blogs = Blog::where('is_published', true)
-                 ->latest()
-                 ->get();
+        ->latest()
+        ->get();
     return Inertia::render('Home/Home', [
         'seo' => $seo,
         'slides' => $slides,
@@ -50,7 +52,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    return Inertia::render('About/About');
+    $aboutHero = AboutHero::first();
+    return Inertia::render('About/About', [
+        'aboutHero' => $aboutHero
+    ]);
 })->name('about');
 
 Route::get('/project', function () {
@@ -66,8 +71,8 @@ Route::get('/price', function () {
 
 Route::get('/blogs', function () {
     $blogs = Blog::where('is_published', true)
-                 ->latest()
-                 ->get();
+        ->latest()
+        ->get();
     return Inertia::render('Blog/Blog', [
         'blogs' => $blogs
     ]);
@@ -98,14 +103,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Edit Home Route
     Route::get('/page-management/{page:slug}/edit', [PageManagementController::class, 'editHome'])->name('page_management.home');
-   
 
 
-   
-    
 
 
-   
+
+
+
+
     // Page Seo management Routes
     Route::get('/seo-customize', [SeoSettingController::class, 'index'])->name('seo.customize');
     Route::get('/fetch/{slug}', [SeoSettingController::class, 'fetchSeo'])->name('seo.fetch');
@@ -151,7 +156,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/{project}/destroy', [ProjectController::class, 'destroy'])->name('destroy');
     });
 
-   Route::prefix('page-management/home/testimonials')->name('page_management.home.testimonials.')->group(function () {
+    Route::prefix('page-management/home/testimonials')->name('page_management.home.testimonials.')->group(function () {
         Route::get('/', [TestimonialController::class, 'index'])->name('index');
         Route::get('/create', [TestimonialController::class, 'create'])->name('create');
         Route::post('/store', [TestimonialController::class, 'store'])->name('store');
@@ -171,11 +176,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/{clientLogo}/destroy', [ClientLogoController::class, 'destroy'])->name('destroy');
     });
 
-   
 
-     //  Admin Blog Management Routes 
+
+    //  Admin Blog Management Routes 
     Route::prefix('page-management/blogs')->name('blogs.')->group(function () {
-       
+
         Route::get('/', [BlogController::class, 'index'])->name('index');
         Route::get('/create', [BlogController::class, 'create'])->name('create');
 
@@ -184,9 +189,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/{blog}/update', [BlogController::class, 'update'])->name('update');
         Route::delete('/{blog}/destroy', [BlogController::class, 'destroy'])->name('destroy');
     });
-    
-   
 
+
+    Route::prefix('page-management/about-hero')->name('about-hero.')->group(function () {
+        Route::get('/', [AboutHeroController::class, 'edit'])->name('edit');
+        Route::post('/update', [AboutHeroController::class, 'update'])->name('update');
+    });
 });
 
 require __DIR__ . '/settings.php';
