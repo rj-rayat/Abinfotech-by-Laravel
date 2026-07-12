@@ -83,7 +83,7 @@ export default function EditAbout({ page }: Props) {
 
 
                     <Link
-                        href={route('admin.page_management.home.about_agency.index')}
+                        href={'/admin/page-management/about-video'}
                         className="block group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
                     >
                         <div className="flex items-start gap-4">
@@ -91,7 +91,7 @@ export default function EditAbout({ page }: Props) {
                                 <UserCheck className="h-5 w-5" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">4. About Section</h3>
+                                <h3 className="font-semibold text-base group-hover:text-primary transition-colors">4. About Video Section</h3>
                                 <p className="text-xs text-muted-foreground">Customize agency introduction story, short experience summary, and skills list.</p>
                             </div>
                         </div>
@@ -102,7 +102,7 @@ export default function EditAbout({ page }: Props) {
 
 
 
-                   <Link href={route('admin.blogs.index')}>
+                   <Link href={'/admin/page-management/teams'}>
                          <div className="group border bg-card hover:border-primary/40 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-orange-500/10 text-orange-500 rounded-lg border border-orange-500/10 group-hover:scale-105 transition-transform">

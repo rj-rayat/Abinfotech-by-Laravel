@@ -17,16 +17,41 @@ interface AboutHeroData {
   stat_text: string;
 }
 
+interface AboutVideoData {
+  sub_title:string;
+  title:string;
+  description_1:string;
+  description_2:string;
+  video_url:string;
+  video_thumbnail:string | null;
+  btn_text:string;
+  btn_link:string;
+}
+
+interface TeamMember {
+    id: number;
+    name: string;
+    role: string;
+    image: string | null;
+    experience_year: number | string;
+    facebook_link?: string;
+    linkedin_link?: string;
+    github_link?: string;
+    portfolio_link?: string;
+}
+
 interface Props {
   aboutHero: AboutHeroData | null;
+  aboutVideo: AboutVideoData | null;
+  teamMembers: TeamMember[];
 }
-export default function About({aboutHero}:Props) {
+export default function About({aboutHero, aboutVideo, teamMembers}:Props) {
   return (
     <WebLayout>
         <Head title="About" />
         <AboutHero data={aboutHero} />
-        <AboutVideoSection/>
-        <TeamSection/>
+        <AboutVideoSection data = {aboutVideo} />
+        <TeamSection members={ teamMembers} />
     </WebLayout>
   )
 }

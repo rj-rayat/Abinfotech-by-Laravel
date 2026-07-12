@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutAgencyController;
 use App\Http\Controllers\Admin\AboutHeroController;
+use App\Http\Controllers\Admin\AboutVideoController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ClientLogoController;
 use App\Http\Controllers\Admin\FunFactController;
@@ -11,10 +12,12 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Models\AboutAgency;
 use App\Models\AboutHero;
+use App\Models\AboutVideo;
 use App\Models\Blog;
 use App\Models\ClientLogo;
 use App\Models\FunFact;
@@ -22,6 +25,7 @@ use App\Models\HeroSlide;
 use App\Models\Project;
 use App\Models\SeoSetting;
 use App\Models\Service;
+use App\Models\Team;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,8 +57,12 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $aboutHero = AboutHero::first();
+    $aboutVideo = AboutVideo::first();
+    $teamMembers = Team::latest()->get();
     return Inertia::render('About/About', [
-        'aboutHero' => $aboutHero
+        'aboutHero' => $aboutHero,
+        'aboutVideo' => $aboutVideo,
+        'teamMembers' => $teamMembers
     ]);
 })->name('about');
 
@@ -195,6 +203,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/', [AboutHeroController::class, 'edit'])->name('edit');
         Route::post('/update', [AboutHeroController::class, 'update'])->name('update');
     });
+
+    // Admin Page Management - About Video Routes
+    Route::prefix('page-management/about-video')->name('about-video.')->group(function() {
+        Route::get('/', [AboutVideoController::class, 'edit'])->name('edit');
+        Route::post('/update', [AboutVideoController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('page-management/teams')->name('teams.')->group(function () {
+    Route::get('/', [TeamController::class, 'index'])->name('index');       // URL: page-management/teams | Name: teams.index
+    Route::get('/create', [TeamController::class, 'create'])->name('create'); // URL: page-management/teams/create | Name: teams.create
+    Route::post('/store', [TeamController::class, 'store'])->name('store');   // URL: page-management/teams/store | Name: teams.store
+
+    Route::get('/{team}/edit', [TeamController::class, 'edit'])->name('edit');     // URL: page-management/teams/{team}/edit
+    Route::post('/{team}/update', [TeamController::class, 'update'])->name('update'); // URL: page-management/teams/{team}/update
+
+    Route::delete('/{team}', [TeamController::class, 'destroy'])->name('destroy'); // URL: page-management/teams/{team} | Name: teams.destroy
+});
 });
 
 require __DIR__ . '/settings.php';

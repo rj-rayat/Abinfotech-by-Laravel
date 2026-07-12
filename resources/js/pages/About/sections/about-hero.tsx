@@ -26,7 +26,7 @@ export default function AboutHero({ data }: Props) {
   const description = data?.description || "We are a team of passionate creators and digital visionaries. Starting from a core belief in exceptional digital craftsmanship, we have evolved into a full-service agency, delivering impactful solutions for clients worldwide.";
   const btnText = data?.btn_text || "Get to know us";
   const btnLink = data?.btn_link || "#";
-  const counterNum = data?.counter_number || "";
+  const counterNum = data?.counter_number || "5";
   const counterText = data?.counter_text || "Years of\nCrafting Digital\nSuccess";
   const statText = data?.stat_text || "Over 250+ projects successfully delivered";
 
