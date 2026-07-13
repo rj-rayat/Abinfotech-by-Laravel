@@ -39,6 +39,11 @@ class PageManagementController extends Controller
         if ($page->slug === 'about') {
             return $this->editAbout($page);
         }
+        if ($page->slug === 'price') {
+            return $this->editPricing($page);
+        }
+
+
 
 
         return Inertia::render('Admin/PageManagement/HomeEdit/EditHome', [
@@ -56,6 +61,12 @@ class PageManagementController extends Controller
     public function editAbout(Page $page)
     {
         return Inertia::render('Admin/PageManagement/About/EditAbout', [
+            'page' => $page,
+        ]);
+    }
+    public function editPricing(Page $page)
+    {
+        return Inertia::render('Admin/PageManagement/Pricing/EditPricing', [
             'page' => $page,
         ]);
     }

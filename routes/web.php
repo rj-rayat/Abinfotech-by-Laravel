@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ClientLogoController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\PageManagementController;
+use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -22,6 +23,7 @@ use App\Models\Blog;
 use App\Models\ClientLogo;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
+use App\Models\Pricing;
 use App\Models\Project;
 use App\Models\SeoSetting;
 use App\Models\Service;
@@ -74,7 +76,10 @@ Route::get('/project', function () {
 })->name('project');
 
 Route::get('/price', function () {
-    return Inertia::render('Price/Price');
+    $plans = Pricing::orderBy('sort_order', 'asc')->get();
+    return Inertia::render('Price/Price', [
+        'plans' => $plans
+    ]);
 })->name('price');
 
 Route::get('/blogs', function () {
@@ -211,15 +216,24 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     });
 
     Route::prefix('page-management/teams')->name('teams.')->group(function () {
-    Route::get('/', [TeamController::class, 'index'])->name('index');       // URL: page-management/teams | Name: teams.index
-    Route::get('/create', [TeamController::class, 'create'])->name('create'); // URL: page-management/teams/create | Name: teams.create
-    Route::post('/store', [TeamController::class, 'store'])->name('store');   // URL: page-management/teams/store | Name: teams.store
+        Route::get('/', [TeamController::class, 'index'])->name('index');       // URL: page-management/teams | Name: teams.index
+        Route::get('/create', [TeamController::class, 'create'])->name('create'); // URL: page-management/teams/create | Name: teams.create
+        Route::post('/store', [TeamController::class, 'store'])->name('store');   // URL: page-management/teams/store | Name: teams.store
 
-    Route::get('/{team}/edit', [TeamController::class, 'edit'])->name('edit');     // URL: page-management/teams/{team}/edit
-    Route::post('/{team}/update', [TeamController::class, 'update'])->name('update'); // URL: page-management/teams/{team}/update
+        Route::get('/{team}/edit', [TeamController::class, 'edit'])->name('edit');     // URL: page-management/teams/{team}/edit
+        Route::post('/{team}/update', [TeamController::class, 'update'])->name('update'); // URL: page-management/teams/{team}/update
 
-    Route::delete('/{team}', [TeamController::class, 'destroy'])->name('destroy'); // URL: page-management/teams/{team} | Name: teams.destroy
-});
+        Route::delete('/{team}', [TeamController::class, 'destroy'])->name('destroy'); // URL: page-management/teams/{team} | Name: teams.destroy
+    });
+
+    Route::prefix('page-management/pricing')->name('pricing.')->group(function () {
+        Route::get('/', [PricingController::class, 'index'])->name('index');
+        Route::get('/create', [PricingController::class, 'create'])->name('create');
+        Route::post('/store', [PricingController::class, 'store'])->name('store');
+        Route::get('/{pricing}/edit', [PricingController::class, 'edit'])->name('edit');
+        Route::put('/{pricing}/update', [PricingController::class, 'update'])->name('update');
+        Route::delete('/{pricing}/destroy', [PricingController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__ . '/settings.php';
