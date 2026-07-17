@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutHeroController;
 use App\Http\Controllers\Admin\AboutVideoController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ClientLogoController;
+use App\Http\Controllers\Admin\ContactSettingController;
 use App\Http\Controllers\Admin\FunFactController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\PageManagementController;
@@ -233,6 +234,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('/{pricing}/edit', [PricingController::class, 'edit'])->name('edit');
         Route::put('/{pricing}/update', [PricingController::class, 'update'])->name('update');
         Route::delete('/{pricing}/destroy', [PricingController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('page-management/contact')->name('contact.')->group(function() {
+        Route::get('/', [ContactSettingController::class, 'edit'])->name('edit');
+        Route::post('/update', [ContactSettingController::class, 'update'])->name('update');
     });
 });
 
