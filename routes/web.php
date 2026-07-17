@@ -36,7 +36,7 @@ Route::get('/', function () {
     $seo = SeoSetting::where('page_slug', 'home')->first();
     $slides = HeroSlide::orderBy('sort_order', 'asc')->get();
     $funFacts = FunFact::firstOrCreate(['id' => 1]);
-    $aboutAgency = AboutAgency::firstOrCreate(['id' => 1]);
+    $aboutAgency = AboutAgency::firstOrCreate(['id' => 1, 'description' => '']);
     $services = Service::orderBy('sort_order', 'asc')->get();
     $projects = Project::orderBy('sort_order', 'asc')->get();
     $testimonials = Testimonial::orderBy('sort_order', 'asc')->get();
@@ -210,7 +210,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     });
 
     // Admin Page Management - About Video Routes
-    Route::prefix('page-management/about-video')->name('about-video.')->group(function() {
+    Route::prefix('page-management/about-video')->name('about-video.')->group(function () {
         Route::get('/', [AboutVideoController::class, 'edit'])->name('edit');
         Route::post('/update', [AboutVideoController::class, 'update'])->name('update');
     });
