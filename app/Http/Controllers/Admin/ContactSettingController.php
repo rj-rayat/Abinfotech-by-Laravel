@@ -9,12 +9,10 @@ use Inertia\Inertia;
 
 class ContactSettingController extends Controller
 {
-    public function edit()
+public function edit()
     {
-       $settings = ContactSetting::first();
-    
-    if (!$settings) {
-        $settings = ContactSetting::create([
+        
+        $settings = ContactSetting::first() ?: ContactSetting::create([
             'phone' => '',
             'hotline' => '',
             'general_email' => '',
@@ -22,28 +20,27 @@ class ContactSettingController extends Controller
             'office_address' => '',
             'city_address' => '',
         ]);
-    }
 
         return Inertia::render('Admin/PageManagement/Contact/Edit', [
-        'settings' => $settings->fresh()
-    ]);
+            'settings' => $settings
+        ]);
     }
 
-  
     public function update(Request $request)
     {
-        $request->validate([
-            'phone'          => 'nullable|string|max:50',
-            'hotline'        => 'nullable|string|max:50',
-            'general_email'  => 'nullable|email|max:100',
-            'support_email'  => 'nullable|email|max:100',
-            'office_address' => 'nullable|string|max:255',
-            'city_address'   => 'nullable|string|max:255',
+        $settings = ContactSetting::first() ?? new ContactSetting();
+        $validated = $request->validate([
+            'phone'          => 'nullable|string',
+            'hotline'        => 'nullable|string',
+            'general_email'  => 'nullable|email',
+            'support_email'  => 'nullable|email',
+            'office_address' => 'nullable|string',
+            'city_address'   => 'nullable|string',
         ]);
-        $settings = ContactSetting::first() ?: new ContactSetting();
-        $settings->fill($request->all());
-        $settings->save();
 
-    return redirect()->back()->with('success', 'Contact settings updated successfully!');
+      
+        $settings->fill($validated)->save();
+
+        return redirect()->back()->with('success', 'Contact settings updated successfully.');
     }
 }

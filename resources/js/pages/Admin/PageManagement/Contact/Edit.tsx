@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import { Phone, Mail, MapPin, Save, ArrowLeft } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
@@ -14,25 +14,46 @@ interface ContactSettings {
 }
 
 interface Props {
-  settings: ContactSettings;
+  settings?: ContactSettings | null; 
 }
 
 export default function Edit({ settings }: Props) {
-    console.log("Inertia Settings Data: ", settings);
-  const safeSettings = settings || {};
-
+  
   const { data, setData, post, processing, errors } = useForm({
-    phone: safeSettings.phone ?? '',
-    hotline: safeSettings.hotline ?? '',
-    general_email: safeSettings.general_email ?? '',
-    support_email: safeSettings.support_email ?? '',
-    office_address: safeSettings.office_address ?? '',
-    city_address: safeSettings.city_address ?? '',
-  });
+  phone: '',
+  hotline: '',
+  general_email: '',
+  support_email: '',
+  office_address: '',
+  city_address: '',
+});
+
+useEffect(() => {
+  if (settings) {
+    setData({
+      phone: settings.phone ?? '',
+      hotline: settings.hotline ?? '',
+      general_email: settings.general_email ?? '',
+      support_email: settings.support_email ?? '',
+      office_address: settings.office_address ?? '',
+      city_address: settings.city_address ?? '',
+    }); 
+  }
+}, [settings]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    post(route('admin.contact.update'));
+    
+
+    post(route('admin.contact.update'), {
+      preserveScroll: true,
+      onSuccess: () => {
+        alert('Settings updated successfully!');
+      },
+      onError: (err) => {
+        console.error("Submission Errors: ", err);
+      }
+    }); 
   };
 
   return (

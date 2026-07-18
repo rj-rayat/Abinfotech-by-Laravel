@@ -2,7 +2,7 @@ import WebLayout from '@/layouts/web-layout'
 import { Head, usePage } from '@inertiajs/react'
 import Hero from './sections/hero-section/Hero'
 
-usePage
+
 import UltraModernFunFacts from './sections/Fun-Facts/UltraModernFunFacts'
 import AboutAgency from './sections/AboutAgency/AboutAgency'
 import Service from './sections/Services/services'

@@ -7,6 +7,7 @@ use App\Models\Page;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Blog;
+use App\Models\ContactSetting;
 
 class PageManagementController extends Controller
 {
@@ -77,6 +78,7 @@ class PageManagementController extends Controller
     {
         return Inertia::render('Admin/PageManagement/Contact/Edit', [
             'page' => $page,
+            'settings' => ContactSetting::first()
         ]);
     }
 }
