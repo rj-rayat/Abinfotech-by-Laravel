@@ -22,6 +22,7 @@ use App\Models\AboutHero;
 use App\Models\AboutVideo;
 use App\Models\Blog;
 use App\Models\ClientLogo;
+use App\Models\ContactSetting;
 use App\Models\FunFact;
 use App\Models\HeroSlide;
 use App\Models\Pricing;
@@ -93,7 +94,10 @@ Route::get('/blogs', function () {
 })->name('blog');
 
 Route::get('/contact', function () {
-    return Inertia::render('Contact/Contact');
+    $contacts = ContactSetting::first();
+    return Inertia::render('Contact/Contact', [
+        'contacts' => $contacts
+    ]);
 })->name('contact');
 
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blogs.show');

@@ -3,15 +3,32 @@ import { motion } from 'framer-motion';
 import { PhoneCall, Mail, MapPin, ArrowRight, Clock } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
-const contactDetails = [
+
+
+interface ContactData {
+  phone:string,
+  hotline:string,
+  general_email:string,
+  support_email:string,
+  office_address:string,
+  city_address:string,
+}
+
+interface Props {
+  data:ContactData | null
+}
+
+export default function ContactInfoHero({data}:Props) {
+
+  const contactDetails = [
   {
     id: 1,
     title: "Call us today",
     icon: PhoneCall,
     description: "Our team is available for direct sync and quick technical consulting.",
     lines: [
-      { label: "PS", value: "+8801978224636" },
-      { label: "HO", value: "+8801737515185" }
+      { label: "PS", value: data?.phone },
+      { label: "HO", value: data?.hotline}
     ],
     gradient: "from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500",
     action: "tel:+8801978224636"
@@ -22,8 +39,8 @@ const contactDetails = [
     icon: Mail,
     description: "Drop us a line anytime, we typically respond within 2-4 business hours.",
     lines: [
-      { label: "General", value: "info@abinfotech.com.bd" },
-      { label: "Support", value: "admin@abinfotech.com.bd" }
+      { label: "General", value: data?.general_email },
+      { label: "Support", value: data?.support_email }
     ],
     gradient: "from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500",
     action: "mailto:info@abinfotech.com.bd"
@@ -34,15 +51,13 @@ const contactDetails = [
     icon: MapPin,
     description: "Visit our software infrastructure development cell for corporate clean discussions.",
     lines: [
-      { label: "Office", value: "726/12, Adabor 10" },
-      { label: "City", value: "Dhaka 1217, Bangladesh" }
+      { label: "Office", value: data?.office_address},
+      { label: "City", value: data?.city_address}
     ],
     gradient: "from-purple-600 to-pink-600 dark:from-purple-500 dark:to-pink-500",
     action: "https://maps.google.com"
   }
 ];
-
-export default function ContactInfoHero() {
   return (
     <section className="bg-background text-foreground pb-24 relative overflow-hidden selection:bg-indigo-500/30">
 
@@ -50,10 +65,8 @@ export default function ContactInfoHero() {
       <div className="relative py-24 bg-background overflow-hidden mb-12 border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none" />
 
-        {/* ডাইনামিক ডট গ্রিড ওভারলে (ডার্ক থিমে ইনভিজিবল হবে না, পারফেক্ট রিডিলিবিলিটি দেবে) */}
         <div className="absolute top-12 right-12 w-40 h-20 bg-[radial-gradient(var(--border)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:16px_16px] hidden md:block opacity-70" />
         
-        {/* টপ অ্যাম্বিয়েন্ট গ্লো */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/[0.02] rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
@@ -88,20 +101,16 @@ export default function ContactInfoHero() {
                 transition={{ delay: index * 0.1, ease: [0.16, 1, 0.3, 1], duration: 0.6 }}
                 className="group bg-card/40 dark:bg-white/[0.01] rounded-[2.5rem] p-10 border border-border/80 dark:border-white/[0.04] shadow-xl shadow-slate-200/20 dark:shadow-black/40 flex flex-col justify-between hover:border-indigo-500/50 dark:hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10 dark:hover:shadow-black/60 transition-all duration-500 relative overflow-hidden backdrop-blur-md"
               >
-                {/* হোভার গ্লো ইফেক্ট (ডার্ক থিম ফ্রেন্ডলি রি-ডিজাইন) */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-muted/30 dark:bg-white/[0.01] rounded-bl-[5rem] -z-10 group-hover:bg-indigo-500/5 dark:group-hover:bg-indigo-500/[0.02] transition-colors duration-500" />
 
                 <div>
-                  {/* আইকন বক্স উইথ রিচ শ্যাডো */}
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${info.gradient} flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 mb-8 relative group-hover:scale-105 transition-transform duration-500`}>
                     <IconComponent size={24} className="stroke-[2]" />
                   </div>
 
-                  {/* হেডিংস */}
                   <h3 className="text-2xl font-bold font-blinker tracking-tight text-foreground mb-3 uppercase">{info.title}</h3>
                   <p className="text-muted-foreground text-sm font-medium leading-relaxed mb-8">{info.description}</p>
 
-                  {/* লাইন্স ডিসপ্লে (ডিভাইডার লাইন ডার্ক মুডেও ক্লিন দেখাবে) */}
                   <div className="space-y-4 pt-6 border-t border-border/60">
                     {info.lines.map((line, i) => (
                       <div key={i} className="flex flex-col">
@@ -112,7 +121,6 @@ export default function ContactInfoHero() {
                   </div>
                 </div>
 
-                {/* বটম কানেক্ট ট্রিগার */}
                 <div className="mt-10 pt-4 flex items-center justify-between text-muted-foreground group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   <span className="text-xs font-bold uppercase tracking-wider">Connect Now</span>
                   <div className="w-10 h-10 bg-muted dark:bg-white/[0.03] border border-border dark:border-white/[0.05] text-foreground group-hover:bg-indigo-600 dark:group-hover:bg-indigo-500 group-hover:text-white rounded-xl flex items-center justify-center transition-all group-hover:translate-x-1 shadow-sm">
@@ -132,7 +140,6 @@ export default function ContactInfoHero() {
           transition={{ duration: 0.5 }}
           className="mt-16 bg-card dark:bg-white/[0.01] text-foreground rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-border dark:border-white/[0.05] shadow-xl shadow-slate-200/10 dark:shadow-black/50 relative overflow-hidden backdrop-blur-md"
         >
-          {/* সলিড ডার্ক টপোগ্রাফি বাদ দিয়ে মডার্ন লুক */}
           <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
           
           <div className="flex items-center gap-5 relative z-10">
