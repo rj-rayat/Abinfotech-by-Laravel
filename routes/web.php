@@ -122,13 +122,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     //Edit Home Route
     Route::get('/page-management/{page:slug}/edit', [PageManagementController::class, 'editHome'])->name('page_management.home');
 
-
-
-
-
-
-
-
     // Page Seo management Routes
     Route::get('/seo-customize', [SeoSettingController::class, 'index'])->name('seo.customize');
     Route::get('/fetch/{slug}', [SeoSettingController::class, 'fetchSeo'])->name('seo.fetch');
@@ -240,7 +233,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/{pricing}/destroy', [PricingController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('page-management/contact')->name('contact.')->group(function() {
+    Route::prefix('page-management/contact')->name('contact.')->group(function () {
         Route::get('/', [ContactSettingController::class, 'edit'])->name('edit');
         Route::post('/update', [ContactSettingController::class, 'update'])->name('update');
     });
